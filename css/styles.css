@@ -301,5 +301,14 @@ p { margin: 0 0 1rem; }
 
 /* ---------- Página legal ---------- */
 .legal { max-width: 44rem; margin: 0 auto; }
+
+/* ---------- Agradecimientos ---------- */
+.creditos { display: grid; gap: 2rem; margin: 2rem 0 3rem; }
+.creditos li { border-left: 4px solid var(--oro); padding-left: 1.25rem; }
+.creditos li:nth-child(2) { border-color: var(--rojo); }
+.legal .creditos__muestra { color: var(--blanco); font-size: 2.6rem; line-height: 1.1; margin-bottom: .4rem; }
+.creditos__muestra--karatula { font-family: var(--fuente-titulo); }
+.creditos__muestra--edo { font-family: var(--fuente-texto); }
+.legal .creditos a { color: var(--oro); }
 .legal h3 { margin-top: 2rem; color: var(--oro); }
 .legal p { color: var(--gris-texto); }

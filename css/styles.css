@@ -191,7 +191,7 @@ p { margin: 0 0 1rem; }
    Debajo: foto de grupo (horizontal) y Archery Zone (vertical) a la misma altura. */
 .perfil {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
-  gap: 3rem; align-items: center;
+  gap: 3rem; align-items: start;
 }
 .perfil__foto { margin: 0; }
 .perfil__foto img {

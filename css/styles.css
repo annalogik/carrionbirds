@@ -1,0 +1,305 @@
+/* =========================================================
+   Carrion Birds · Centro de Tecnificación Virtual
+   ========================================================= */
+
+/* ---------- Tipografías ----------
+   Karatula: LL Karatula, de Lloyd Zapanta.
+   Edo: de Vic Fieger (licencia en fonts/Edo-licencia-Vic-Fieger.txt). */
+@font-face {
+  font-family: "Karatula";
+  src: url("../fonts/Karatula.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Edo";
+  src: url("../fonts/Edo.woff") format("woff");
+  font-display: swap;
+}
+
+/* ---------- Colores y medidas ---------- */
+:root {
+  --negro: #000000;
+  --blanco: #ffffff;
+  --gris: #1a1a1a;          /* fondo de las secciones alternas */
+  --gris-texto: #c9c9c9;
+  --oro: #f2c230;           /* amarillo de la diana */
+  --rojo: #d7262e;          /* rojo de la diana */
+  --azul: #1f7fd1;          /* azul de la diana */
+
+  --fuente-titulo: "Karatula", "Impact", "Arial Black", sans-serif;
+  --fuente-texto: "Edo", "Trebuchet MS", sans-serif;
+  /* Para listas y textos largos. Si quieres TODO en Edo,
+     cambia esta línea por: var(--fuente-texto); */
+  --fuente-lectura: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --ancho: 68rem;
+  --margen: clamp(1rem, 4vw, 2.5rem);
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body {
+  margin: 0;
+  background: var(--negro);
+  color: var(--blanco);
+  font-family: var(--fuente-lectura);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: normal; line-height: 1.1; }
+h1, h2 { font-family: var(--fuente-titulo); letter-spacing: .02em; }
+h3 { font-family: var(--fuente-texto); font-size: 1.5rem; margin-bottom: .75rem; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+p { margin: 0 0 1rem; }
+
+:focus-visible { outline: 3px solid var(--oro); outline-offset: 3px; }
+
+.saltar {
+  position: absolute; left: -999px; top: 0;
+  background: var(--oro); color: var(--negro); padding: .5rem 1rem; z-index: 100;
+}
+.saltar:focus { left: 1rem; }
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-block;
+  font-family: var(--fuente-texto);
+  font-size: 1.15rem;
+  text-decoration: none;
+  padding: .7em 1.4em;
+  border-radius: 999px;
+  transition: background-color .2s, color .2s;
+}
+.boton--oro { background: var(--oro); color: var(--negro); }
+.boton--oro:hover { background: var(--blanco); }
+.boton--borde { border: 2px solid var(--oro); color: var(--oro); padding: .45em 1.1em; font-size: 1rem; }
+.boton--borde:hover { background: var(--oro); color: var(--negro); }
+
+/* ---------- Cabecera fija ---------- */
+.cabecera {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: .75rem var(--margen);
+  background: rgba(0, 0, 0, .92);
+  border-bottom: 1px solid #222;
+}
+.marca {
+  display: flex; align-items: center; gap: .6rem;
+  text-decoration: none;
+  font-family: var(--fuente-titulo); font-size: 1.4rem;
+  margin-right: auto;
+}
+.marca img { width: 40px; height: 40px; border-radius: 50%; }
+.menu { display: flex; gap: 1.25rem; font-family: var(--fuente-texto); }
+.menu a { text-decoration: none; color: var(--gris-texto); }
+.menu a:hover { color: var(--oro); }
+
+/* ---------- Portada ---------- */
+.portada {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) var(--margen);
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center;
+  min-height: calc(100vh - 4.5rem);
+  overflow-x: clip;  /* los anillos al abrirse no generan scroll lateral */
+}
+.portada__club { font-family: var(--fuente-texto); color: var(--oro); font-size: 1.2rem; margin-bottom: 1rem; }
+.portada h1 { font-size: clamp(2.6rem, 7vw, 5.2rem); margin-bottom: 1.5rem; }
+.portada__lema { font-family: var(--fuente-texto); font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--gris-texto); max-width: 30ch; margin-bottom: 2rem; }
+
+/* La diana: aparece una diana, sus anillos se abren desde el centro
+   hacia fuera y al final solo queda el logo */
+.diana {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 24rem);
+  aspect-ratio: 1;
+}
+.diana__logo {
+  width: 100%;
+  animation: logo-aparece .6s ease-out 1.2s both;
+}
+.diana__anillos {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  animation: diana-entra .6s cubic-bezier(.2, .8, .2, 1) both;
+}
+.anillo {
+  fill: none;
+  stroke-width: 20.5;               /* cada anillo ocupa una franja de la diana */
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: anillo-abre .8s cubic-bezier(.55, 0, .3, 1) both;
+}
+.anillo--blanco { stroke: var(--blanco); animation-delay: 1.40s; }
+.anillo--negro  { stroke: #111;          animation-delay: 1.30s; }
+.anillo--azul   { stroke: var(--azul);   animation-delay: 1.20s; }
+.anillo--rojo   { stroke: var(--rojo);   animation-delay: 1.10s; }
+.anillo--oro    { stroke: var(--oro);    animation-delay: 1.00s; stroke-width: 20; }
+
+@keyframes diana-entra {
+  from { opacity: 0; transform: scale(.6) rotate(-20deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes anillo-abre {
+  0%   { transform: scale(1);   opacity: 1; }
+  70%  { opacity: 0; }
+  100% { transform: scale(2);   opacity: 0; }
+}
+@keyframes logo-aparece {
+  from { opacity: 0; transform: scale(.92); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diana__anillos { display: none; }
+  .diana__logo { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Secciones ---------- */
+.bloque {
+  padding: clamp(3.5rem, 8vw, 6rem) var(--margen);
+}
+.bloque > * { max-width: var(--ancho); margin-left: auto; margin-right: auto; }
+.bloque > .entradilla { max-width: 44rem; margin-left: max(0px, calc((100% - var(--ancho)) / 2)); }
+.bloque--claro { background: var(--gris); }
+.bloque h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin-bottom: 1.5rem; }
+.entradilla {
+  font-family: var(--fuente-texto);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height: 1.45;
+  color: var(--gris-texto);
+  margin-bottom: 2.5rem;
+}
+.contacto .entradilla { margin-left: auto; margin-right: auto; }
+
+.dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+
+.etiquetas { display: flex; flex-wrap: wrap; gap: .6rem; }
+.etiquetas li {
+  border: 1px solid #444; border-radius: 999px;
+  padding: .35em 1em;
+}
+
+/* ---------- Conóceme ----------
+   Arriba: foto vertical de la entrenadora + texto.
+   Debajo: foto de grupo (horizontal) y Archery Zone (vertical) a la misma altura. */
+.perfil {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 3rem; align-items: center;
+}
+.perfil__foto { margin: 0; }
+.perfil__foto img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  object-position: center 25%;   /* prioriza la cara */
+  border-radius: 4px;
+}
+.perfil__nombre { font-family: var(--fuente-titulo); font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: .25rem; }
+.perfil__cargo { font-family: var(--fuente-texto); color: var(--oro); font-size: 1.25rem; margin-bottom: 1.5rem; }
+.perfil__texto > p:not([class]) { max-width: 38rem; margin-bottom: 2rem; }
+
+.galeria {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);  /* horizontal + vertical a la misma altura */
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.galeria figure { margin: 0; display: flex; flex-direction: column; }
+.galeria img { width: 100%; border-radius: 4px; object-fit: cover; }
+.galeria__grupo img { aspect-ratio: 3 / 2; }
+.galeria__zona img { flex: 1; min-height: 0; height: 100%; object-position: center 45%; }
+.galeria figcaption { font-size: .9rem; color: var(--gris-texto); margin-top: .6rem; }
+
+/* ---------- Qué incluye: cada bloque lleva un color de la diana ---------- */
+.servicios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.servicio { border-top: 6px solid var(--color); padding-top: 1.25rem; }
+.servicio h3 { color: var(--color); }
+.servicio li { padding: .55rem 0; border-bottom: 1px solid #262626; }
+.servicio--azul { --color: var(--azul); }
+.servicio--rojo { --color: var(--rojo); }
+.servicio--oro  { --color: var(--oro); }
+.servicio--azul h3 { color: #5aa8ec; } /* azul aclarado para que se lea bien sobre negro */
+
+/* ---------- Contacto ---------- */
+.contacto { text-align: center; }
+.formulario {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 1.5rem;
+  max-width: 44rem; text-align: left;
+}
+.campo { display: flex; flex-direction: column; gap: .4rem; }
+.campo--ancho { grid-column: 1 / -1; }
+.campo label { font-family: var(--fuente-texto); font-size: 1.1rem; }
+.campo input, .campo textarea {
+  font: inherit; color: var(--blanco);
+  background: var(--negro);
+  border: 1px solid #555; border-radius: 6px;
+  padding: .75rem .9rem;
+}
+.campo input:focus, .campo textarea:focus { border-color: var(--oro); outline: none; box-shadow: 0 0 0 3px rgba(242, 194, 48, .35); }
+.campo textarea { resize: vertical; min-height: 8rem; }
+.campo textarea::placeholder { color: #777; }
+.campo--check { flex-direction: row; align-items: flex-start; gap: .7rem; }
+.campo--check input { width: 1.2rem; height: 1.2rem; margin-top: .2rem; accent-color: var(--oro); padding: 0; }
+.campo--check label { font-family: var(--fuente-lectura); font-size: 1rem; }
+.formulario__legal { font-size: .9rem; color: var(--gris-texto); margin: -.5rem 0 0; }
+.formulario .boton { border: 0; cursor: pointer; }
+.formulario .boton:disabled { opacity: .6; cursor: wait; }
+.formulario__estado { margin: 0; min-height: 1.5em; }
+.formulario__estado--ok { color: var(--oro); }
+.formulario__estado--error { color: #ff6b70; }
+.oculto { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Pie ---------- */
+.pie {
+  border-top: 1px solid #222;
+  color: var(--gris-texto);
+  font-size: .9rem;
+  padding: 3rem var(--margen) 2.5rem;
+}
+.pie__referencias { max-width: var(--ancho); margin: 0 auto 3rem; text-align: center; }
+.pie__titulo { font-family: var(--fuente-texto); color: var(--blanco); font-size: 1.2rem; margin-bottom: 1.5rem; }
+.federaciones { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem 3rem; }
+.federaciones a {
+  display: flex; flex-direction: column; align-items: center; gap: .75rem;
+  max-width: 13rem; text-decoration: none; color: var(--gris-texto);
+}
+.federaciones img {
+  width: 96px; height: 96px; object-fit: contain;
+  background: var(--blanco); border-radius: 50%; padding: 10px;
+  transition: transform .2s;
+}
+.federaciones a:hover { color: var(--oro); }
+.federaciones a:hover img { transform: scale(1.06); }
+.pie__club { text-align: center; padding-top: 2.5rem; border-top: 1px solid #222; max-width: var(--ancho); margin: 0 auto; }
+.pie__club img { width: 110px; margin: 0 auto 1.25rem; }
+.pie p { margin-bottom: .4rem; }
+
+/* ---------- Móvil y tableta ---------- */
+@media (max-width: 860px) {
+  .menu { display: none; }
+  .portada { grid-template-columns: 1fr; min-height: 0; text-align: center; gap: 2.5rem; }
+  .portada__lema { margin-left: auto; margin-right: auto; }
+  .diana { order: -1; width: min(70%, 16rem); }
+  .perfil, .servicios, .dos-columnas, .formulario { grid-template-columns: 1fr; }
+  .perfil__foto { max-width: 22rem; }
+  .galeria { grid-template-columns: 1fr; margin-top: 2.5rem; }
+  .galeria__zona img { flex: none; height: auto; aspect-ratio: 4 / 5; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .federaciones a:hover img { transform: none; }
+}
+@media (max-width: 420px) {
+  .marca span { font-size: 1.15rem; }
+  .cabecera { gap: .75rem; }
+}
+
+
+/* ---------- Página legal ---------- */
+.legal { max-width: 44rem; margin: 0 auto; }
+.legal h3 { margin-top: 2rem; color: var(--oro); }
+.legal p { color: var(--gris-texto); }

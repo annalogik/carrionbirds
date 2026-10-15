@@ -108,7 +108,7 @@ p { margin: 0 0 1rem; }
 }
 .portada__club { font-family: var(--fuente-texto); color: var(--oro); font-size: 1.2rem; margin-bottom: 1rem; }
 .portada h1 { font-size: clamp(2.6rem, 7vw, 5.2rem); margin-bottom: 1.5rem; }
-.portada__lema { font-family: var(--fuente-texto); font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--gris-texto); max-width: 30ch; margin-bottom: 2rem; }
+.portada__lema { font-family: var(--fuente-lectura); font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--gris-texto); max-width: 30ch; margin-bottom: 2rem; }
 
 /* La diana: aparece una diana, sus anillos se abren desde el centro
    hacia fuera y al final solo queda el logo */
@@ -170,7 +170,7 @@ p { margin: 0 0 1rem; }
 .bloque--claro { background: var(--gris); }
 .bloque h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin-bottom: 1.5rem; }
 .entradilla {
-  font-family: var(--fuente-texto);
+  font-family: var(--fuente-lectura);
   font-size: clamp(1.25rem, 2.2vw, 1.55rem);
   line-height: 1.45;
   color: var(--gris-texto);

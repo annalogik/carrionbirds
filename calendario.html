@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=13">
+  <link rel="stylesheet" href="css/styles.css?v=14">
 </head>
 <body class="cal">
 
@@ -125,6 +125,11 @@
 
     <noscript><p class="bloque">Para ver el calendario hace falta tener JavaScript activado.</p></noscript>
   </main>
+
+  <!-- Botón flotante para volver arriba: solo en el móvil y cuando has bajado por la página -->
+  <a class="subir" href="#" aria-label="Volver arriba" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>
+  </a>
 
   <footer class="pie">
     <div class="pie__club">
@@ -509,6 +514,18 @@
       });
 
       aplicarFiltros();
+
+      // --- Botón flotante "volver arriba" ---
+      // Aparece al bajar por la página (también al tocar un día del calendario, que lleva a la competición)
+      var subir = document.querySelector(".subir");
+      function mostrarSubir() { subir.hidden = window.scrollY < 500; }
+      window.addEventListener("scroll", mostrarSubir, { passive: true });
+      mostrarSubir();
+      subir.addEventListener("click", function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        history.replaceState(null, "", location.pathname);   // quita el #competicion-N de la dirección
+      });
     })();
   </script>
 

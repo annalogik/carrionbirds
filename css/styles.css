@@ -645,10 +645,21 @@ p { margin: 0 0 1rem; }
 .cal-pin:hover .cal-pin__nombre { color: var(--oro); }
 .cal-mapa__nota { font-size: .85rem; color: var(--gris-texto); font-style: italic; margin: .6rem 0 0; }
 
+/* Botón flotante "volver arriba" (calendario): solo en pantallas estrechas */
+.subir {
+  position: fixed; z-index: 40;
+  right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  width: 3rem; height: 3rem; border-radius: 50%;
+  display: none; place-items: center;
+  background: var(--oro); box-shadow: 0 4px 14px rgba(0, 0, 0, .6);
+}
+.subir svg { width: 1.4rem; height: 1.4rem; fill: none; stroke: var(--negro); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
 /* Botones Calendario / Mapa: solo en pantallas estrechas */
 .cal-resumen__pestanas { display: none; }
 
 @media (max-width: 860px) {
+  .subir { display: grid; }
   /* Calendario y mapa uno al lado del otro; se ve uno cada vez y se desliza de lado */
   .cal-resumen__pestanas {
     display: inline-flex; margin-top: 2rem;

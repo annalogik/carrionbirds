@@ -345,3 +345,31 @@ p { margin: 0 0 1rem; }
 }
 .legal h3 { margin-top: 2rem; color: var(--oro); }
 .legal p { color: var(--gris-texto); }
+
+/* ---------- Más sobre mí (luz-carrion-perez.html) ---------- */
+.cv .bloque > * { max-width: 56rem; }
+.cv__portada { padding-bottom: 1rem; }
+.cv__portada h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); margin-bottom: .75rem; }
+.cv__lista { display: grid; gap: .8rem; }
+.cv__lista li { position: relative; padding-left: 1.6rem; }
+.cv__lista li::before {   /* mismo círculo amarillo que en Conóceme */
+  content: ""; position: absolute; left: 0; top: .45em;
+  width: .7rem; height: .7rem; border-radius: 50%;
+  border: 3px solid var(--oro); box-sizing: border-box;
+}
+.cv__etapa { margin-bottom: 3.5rem; }
+.cv__etapa h3 { color: var(--oro); }
+.cv__etapa p { color: var(--gris-texto); max-width: 46rem; }
+
+/* Fotos en fila a la misma altura: cada una crece según su proporción (--ar) */
+.cv__fotos { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 2.5rem; }
+.cv__fotos figure {
+  margin: 0;
+  flex: calc(var(--ar) * 100) 1 calc(var(--ar) * 11rem);
+}
+.cv__fotos img { width: 100%; height: auto; border-radius: 4px; }
+.cv__fotos figcaption { font-size: .9rem; color: var(--gris-texto); margin-top: .6rem; }
+.cv__volver { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+@media (max-width: 600px) {
+  .cv__fotos figure { flex-basis: 100%; }   /* en el móvil, una foto por fila */
+}

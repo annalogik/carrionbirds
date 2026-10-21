@@ -449,7 +449,7 @@ p { margin: 0 0 1rem; }
    Si los botones no caben, la línea se desliza de lado en vez de crecer hacia abajo. */
 .cal__filtros {
   display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.75rem;
-  margin-top: 2rem; padding: .75rem 1rem;
+  margin-bottom: 2.25rem; padding: .75rem 1rem;
   border: 1px solid #2c2c2c; border-radius: 10px; background: #0d0d0d;
 }
 .cal__filtro { display: flex; align-items: center; gap: .6rem; min-width: 0; max-width: 100%; }

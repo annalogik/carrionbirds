@@ -185,6 +185,14 @@ p { margin: 0 0 1rem; }
   border: 1px solid #444; border-radius: 999px;
   padding: .35em 1em;
 }
+/* Etiquetas que son enlaces: toda la pastilla se puede pulsar */
+.etiquetas li:has(a) { padding: 0; transition: border-color .2s; }
+.etiquetas a {
+  display: block; padding: .35em 1em;
+  text-decoration: none; transition: color .2s;
+}
+.etiquetas li:has(a:hover) { border-color: var(--oro); }
+.etiquetas a:hover { color: var(--oro); }
 
 /* ---------- Conóceme ----------
    Arriba: foto vertical de la entrenadora + texto.

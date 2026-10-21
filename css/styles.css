@@ -193,6 +193,7 @@ p { margin: 0 0 1rem; }
 }
 .etiquetas li:has(a:hover) { border-color: var(--oro); }
 .etiquetas a:hover { color: var(--oro); }
+.etiquetas__aviso { margin: 1.5rem 0 0; font-size: .95rem; color: var(--gris-texto); }
 
 /* ---------- Conóceme ----------
    Arriba: foto vertical de la entrenadora + texto.

@@ -348,28 +348,87 @@ p { margin: 0 0 1rem; }
 
 /* ---------- Más sobre mí (luz-carrion-perez.html) ---------- */
 .cv .bloque > * { max-width: 56rem; }
-.cv__portada { padding-bottom: 1rem; }
+.cv .bloque h2 { margin-bottom: 2rem; }
+.cv__portada { padding-bottom: clamp(2.5rem, 6vw, 4rem); }
 .cv__portada h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); margin-bottom: .75rem; }
-.cv__lista { display: grid; gap: .8rem; }
-.cv__lista li { position: relative; padding-left: 1.6rem; }
-.cv__lista li::before {   /* mismo círculo amarillo que en Conóceme */
-  content: ""; position: absolute; left: 0; top: .45em;
-  width: .7rem; height: .7rem; border-radius: 50%;
-  border: 3px solid var(--oro); box-sizing: border-box;
-}
-.cv__etapa { margin-bottom: 3.5rem; }
-.cv__etapa h3 { color: var(--oro); }
-.cv__etapa p { color: var(--gris-texto); max-width: 46rem; }
 
-/* Fotos en fila a la misma altura: cada una crece según su proporción (--ar) */
-.cv__fotos { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 2.5rem; }
+/* Índice: etiquetas con flecha hacia abajo que llevan a cada sección */
+.cv__indice a::before {
+  --icono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1v7M1.5 4.8 5 8.3l3.5-3.5' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Entradas del currículum: fecha a la izquierda, título y detalle a la derecha */
+.cv-lineas { border-top: 1px solid #2c2c2c; }
+.cv-linea {
+  display: grid; grid-template-columns: 7.5rem minmax(0, 1fr);
+  column-gap: 1.5rem;
+  padding: .9rem 0;
+  border-bottom: 1px solid #2c2c2c;
+}
+.cv-linea p { margin: 0; }
+.cv-linea__fecha {
+  grid-row: span 2;
+  font-family: var(--fuente-texto); color: var(--oro);
+  font-size: 1.05rem; line-height: 1.5;
+}
+.cv-linea__titulo { color: var(--blanco); font-weight: 600; }
+.cv-linea__detalle { color: var(--gris-texto); font-size: .95rem; }
+
+/* Palmarés: un bloque por modalidad con la raya del color de la diana */
+.cv-etapa {
+  border-left: 4px solid var(--color);
+  padding-left: clamp(1rem, 3vw, 1.75rem);
+  margin-bottom: 3.5rem;
+}
+.cv-etapa h3 {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem 1rem;
+  color: var(--color); font-size: 1.7rem; margin-bottom: 1rem;
+}
+.cv-etapa__fechas { color: var(--gris-texto); font-size: 1.05rem; }
+.cv-etapa__intro { color: var(--gris-texto); margin-bottom: 1rem; }
+.cv-etapa--rojo   { --color: #ff5a60; }   /* rojo aclarado para que se lea sobre gris */
+.cv-etapa--azul   { --color: #5aa8ec; }   /* azul aclarado, como en Qué incluye */
+.cv-etapa--oro    { --color: var(--oro); }
+.cv-etapa--blanco { --color: var(--blanco); }
+
+/* Fotos en miniatura, todas a la misma altura. Al pulsarlas se amplían. */
+.cv__fotos { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.75rem; }
 .cv__fotos figure {
   margin: 0;
-  flex: calc(var(--ar) * 100) 1 calc(var(--ar) * 11rem);
+  /* ancho de la foto, pero nunca menos de 11rem para que el pie no quede en columna */
+  width: max(calc(var(--ar) * 9rem), 11rem); max-width: 100%;
 }
-.cv__fotos img { width: 100%; height: auto; border-radius: 4px; }
-.cv__fotos figcaption { font-size: .9rem; color: var(--gris-texto); margin-top: .6rem; }
+.cv__fotos a { display: inline-block; max-width: 100%; border-radius: 4px; overflow: hidden; cursor: zoom-in; vertical-align: top; }
+.cv__fotos img {
+  height: 9rem; width: auto; max-width: 100%; object-fit: cover;
+  transition: transform .25s, opacity .25s;
+}
+.cv__fotos a:hover img { transform: scale(1.04); opacity: .9; }
+.cv__fotos figcaption {
+  font-size: .8rem; font-style: italic; line-height: 1.4;
+  color: #9a9a9a; margin-top: .45rem;
+}
 .cv__volver { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+
+/* Visor de fotos ampliadas */
+.visor {
+  border: 0; padding: 0; background: none; color: var(--gris-texto);
+  max-width: 95vw; max-height: 95vh; overflow: visible; cursor: zoom-out;
+}
+.visor::backdrop { background: rgba(0, 0, 0, .9); }
+.visor img { display: block; max-width: 95vw; max-height: 85vh; width: auto; height: auto; border-radius: 4px; }
+.visor__pie { margin: .6rem 0 0; font-size: .9rem; font-style: italic; text-align: center; }
+.visor__cerrar {
+  position: fixed; top: 1rem; right: 1rem;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  border: 2px solid var(--oro); background: var(--negro); color: var(--oro);
+  font-size: 1.6rem; line-height: 1; cursor: pointer;
+}
+
 @media (max-width: 600px) {
-  .cv__fotos figure { flex-basis: 100%; }   /* en el móvil, una foto por fila */
+  .cv-linea { grid-template-columns: minmax(0, 1fr); }   /* la fecha pasa arriba */
+  .cv-linea__fecha { grid-row: auto; font-size: .95rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cv__fotos a:hover img { transform: none; }
 }

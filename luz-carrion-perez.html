@@ -35,96 +35,209 @@
     </a>
   </header>
 
+  <!--
+    CÓMO ESTÁ HECHA ESTA PÁGINA
+    - Cada entrada del currículum es un <li class="cv-linea"> con tres partes:
+      fecha (amarillo), título (blanco) y detalle (gris, opcional).
+    - Las fotos van en <div class="cv__fotos">. Cada una lleva style="--ar: ancho / alto"
+      con la proporción de la imagen. Al pulsarlas se abren en grande.
+    - En las fechas usa guion normal (2016-2018): la fuente Edo no tiene ni la raya larga ni la barra /.
+  -->
+
   <main>
     <section class="bloque cv__portada">
       <h1>Coach Luz Carrión Pérez</h1>
       <p class="perfil__cargo">Técnico Deportivo de Tiro con Arco Nivel 2 · Granada</p>
+      <nav aria-label="Secciones de la página">
+        <ul class="etiquetas cv__indice">
+          <li><a href="#formacion">Formación</a></li>
+          <li><a href="#experiencia">Experiencia</a></li>
+          <li><a href="#palmares">Palmarés</a></li>
+        </ul>
+      </nav>
     </section>
 
-    <!--
-      FOTOS EN FILA
-      Cada foto lleva style="--ar: ancho / alto" (proporción de la imagen) para que
-      todas las de una misma fila salgan a la misma altura.
-    -->
+    <!-- FORMACIÓN -->
+    <section class="bloque bloque--claro" id="formacion">
+      <h2>Formación</h2>
+      <ul class="cv-lineas">
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">Nov 2025</p>
+          <p class="cv-linea__titulo">Certificado “Archery Coaching”. KSL International Archery Theory, Level 1</p>
+          <p class="cv-linea__detalle">Campamento en Yucaipa (California)</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2023-2024</p>
+          <p class="cv-linea__titulo">Técnico Deportivo de Tiro con Arco Nivel 2</p>
+          <p class="cv-linea__detalle">CSD</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2021-2022</p>
+          <p class="cv-linea__titulo">Técnico Deportivo de Tiro con Arco Nivel 1</p>
+          <p class="cv-linea__detalle">CSD</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2020</p>
+          <p class="cv-linea__titulo">Curso de Especialista en Psicología aplicada al tiro con arco</p>
+          <p class="cv-linea__detalle">Impartido por Carlos Morillas · RFETA · Granada</p>
+        </li>
+      </ul>
 
-    <section class="bloque bloque--claro">
-      <h2>Formación y experiencia profesional</h2>
-      <ul class="cv__lista">
-        <li>Maestra jubilada desde 2022.</li>
-        <li>Título de Técnico Deportivo de Tiro con Arco Nivel 1. 2021/2022. CSD.</li>
-        <li>Título de Técnico Deportivo de Tiro con Arco Nivel 2. 2023/2024. CSD.</li>
-        <li>Curso de Especialista en Psicología aplicada al tiro con arco, impartido por Carlos Morillas. RFETA. Granada, 2020.</li>
-        <li>Participación en el PAR 1, curso 2021/2022.</li>
-        <li>Participación en el PAR 1, curso 2022/2023.</li>
-        <li>Participación como técnico en el Plan Andaluz de Tecnificación Deportiva, curso 2025, en el que uno de mis alumnos fue seleccionado como arquero.</li>
-        <li>Técnico RFETA para la selección española en el Mundial de 3D de Mokrice (Eslovenia), 2024.</li>
-        <li>Entrenadora personal de tiro con arco de varios arqueros en distintos clubes. 2025 y 2026.</li>
-        <li>En noviembre de 2025 realizo un campamento en Yucaipa (California), obteniendo el certificado de “Archery Coaching”. KSL International Archery Theory. Level 1.</li>
+      <div class="cv__fotos">
+        <figure style="--ar: 768 / 1024">
+          <a href="img/cv-certificado-ksl.jpg"><img src="img/cv-certificado-ksl.jpg" alt="Luz Carrión recibe el certificado de KSL International de manos del entrenador jefe" width="768" height="1024" loading="lazy"></a>
+          <figcaption>Recibiendo el certificado KSL tras el campamento en Yucaipa (California), 2025</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section class="bloque" id="experiencia">
+      <h2>Experiencia</h2>
+      <ul class="cv-lineas">
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2025-2026</p>
+          <p class="cv-linea__titulo">Entrenadora personal de tiro con arco</p>
+          <p class="cv-linea__detalle">Varios arqueros en distintos clubes</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2025</p>
+          <p class="cv-linea__titulo">Técnico en el Plan Andaluz de Tecnificación Deportiva</p>
+          <p class="cv-linea__detalle">Uno de mis alumnos fue seleccionado como arquero</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2024</p>
+          <p class="cv-linea__titulo">Técnico RFETA de la selección española</p>
+          <p class="cv-linea__detalle">Mundial de 3D · Mokrice (Eslovenia)</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">2021-2023</p>
+          <p class="cv-linea__titulo">Participación en el PAR 1</p>
+          <p class="cv-linea__detalle">Cursos 2021/2022 y 2022/2023</p>
+        </li>
+        <li class="cv-linea">
+          <p class="cv-linea__fecha">Hasta 2022</p>
+          <p class="cv-linea__titulo">Maestra</p>
+          <p class="cv-linea__detalle">Jubilada desde 2022</p>
+        </li>
       </ul>
 
       <div class="cv__fotos">
         <figure style="--ar: 1050 / 1400">
-          <img src="img/cv-mokrice-seleccion.jpg" alt="Luz Carrión, con la acreditación de técnico, entre dos arqueros de la selección española con sus medallas, delante del escenario del Mundial de 3D de Mokrice" width="1050" height="1400" loading="lazy">
-          <figcaption>Como técnico de la RFETA con la selección española en el Mundial de 3D de Mokrice (Eslovenia), 2024</figcaption>
+          <a href="img/cv-mokrice-seleccion.jpg"><img src="img/cv-mokrice-seleccion.jpg" alt="Luz Carrión, con la acreditación de técnico, entre dos arqueros de la selección española con sus medallas, delante del escenario del Mundial de 3D de Mokrice" width="1050" height="1400" loading="lazy"></a>
+          <figcaption>Con la selección española en el Mundial de 3D de Mokrice, 2024</figcaption>
         </figure>
         <figure style="--ar: 1050 / 1400">
-          <img src="img/cv-mokrice-podio.jpg" alt="Luz Carrión junto a otro técnico de la selección española delante del podio y del cartel del Mundial de 3D de Mokrice" width="1050" height="1400" loading="lazy">
+          <a href="img/cv-mokrice-podio.jpg"><img src="img/cv-mokrice-podio.jpg" alt="Luz Carrión junto a otro técnico de la selección española delante del podio y del cartel del Mundial de 3D de Mokrice" width="1050" height="1400" loading="lazy"></a>
           <figcaption>Ante el podio del Mundial de 3D de Mokrice, 2024</figcaption>
-        </figure>
-        <figure style="--ar: 768 / 1024">
-          <img src="img/cv-certificado-ksl.jpg" alt="Luz Carrión recibe el certificado de KSL International de manos del entrenador jefe" width="768" height="1024" loading="lazy">
-          <figcaption>Recibiendo el certificado KSL International Archery Theory Level 1 tras el campamento en Yucaipa (California)</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="bloque">
-      <h2>Palmarés más destacado como arquera</h2>
+    <!-- PALMARÉS: un bloque por modalidad, cada uno con un color de la diana -->
+    <section class="bloque bloque--claro" id="palmares">
+      <h2>Palmarés como arquera</h2>
 
-      <div class="cv__etapa">
-        <h3>Arco tradicional · 2016-2018</h3>
-        <p>Desde 2016 a 2018 compito en la modalidad de arco tradicional y, además de diferentes medallas en las ligas nacionales y autonómicas, consigo en el año 2018 ser seleccionada para representar a España en el Campeonato de Europa en Gotemburgo con el equipo nacional de tiro con arco. También en ese año me proclamo subcampeona de España en el Campeonato de España de Campo y campeona de España en el Campeonato de España 3D en Sala.</p>
+      <article class="cv-etapa cv-etapa--rojo">
+        <h3>Arco tradicional <span class="cv-etapa__fechas">2016-2018</span></h3>
+        <ul class="cv-lineas">
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2018</p>
+            <p class="cv-linea__titulo">Campeona de España</p>
+            <p class="cv-linea__detalle">Campeonato de España 3D en Sala</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2018</p>
+            <p class="cv-linea__titulo">Subcampeona de España</p>
+            <p class="cv-linea__detalle">Campeonato de España de Campo</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2018</p>
+            <p class="cv-linea__titulo">Selección española</p>
+            <p class="cv-linea__detalle">Campeonato de Europa · Gotemburgo</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2016-2018</p>
+            <p class="cv-linea__titulo">Medallas en ligas nacionales y autonómicas</p>
+          </li>
+        </ul>
         <div class="cv__fotos">
           <figure style="--ar: 848 / 1491">
-            <img src="img/cv-campeona-espana-3d-sala.jpg" alt="Luz Carrión sonriente con la medalla de oro al cuello en un pabellón" width="848" height="1491" loading="lazy">
+            <a href="img/cv-campeona-espana-3d-sala.jpg"><img src="img/cv-campeona-espana-3d-sala.jpg" alt="Luz Carrión sonriente con la medalla de oro al cuello en un pabellón" width="848" height="1491" loading="lazy"></a>
             <figcaption>Campeona de España de 3D en Sala, 2018</figcaption>
           </figure>
           <figure style="--ar: 960 / 720">
-            <img src="img/cv-equipo-nacional-gotemburgo.jpg" alt="El equipo nacional español posa en el campo de tiro con el cartel de Spain" width="960" height="720" loading="lazy">
-            <figcaption>Con el equipo nacional en el Campeonato de Europa de Gotemburgo, 2018</figcaption>
+            <a href="img/cv-equipo-nacional-gotemburgo.jpg"><img src="img/cv-equipo-nacional-gotemburgo.jpg" alt="El equipo nacional español posa en el campo de tiro con el cartel de Spain" width="960" height="720" loading="lazy"></a>
+            <figcaption>Con el equipo nacional en Gotemburgo, 2018</figcaption>
           </figure>
         </div>
-      </div>
+      </article>
 
-      <div class="cv__etapa">
-        <h3>Arco desnudo · 2019-2022</h3>
-        <p>Desde 2019 a 2022 compito en la modalidad de arco desnudo. En 2019 soy seleccionada para representar a España en el Campeonato del Mundo de Canadá, quedando en 11ª posición y obteniendo en consecuencia el reconocimiento de DAN (deportista de alto nivel).</p>
-        <p>En 2021 me proclamo campeona de España de recorrido de 3D y soy seleccionada de nuevo para pertenecer al equipo nacional en el Campeonato de Europa de 3D en Maribor (Eslovenia). Además consigo otras medallas como campeona absoluta de mi modalidad en Andalucía.</p>
+      <article class="cv-etapa cv-etapa--azul">
+        <h3>Arco desnudo <span class="cv-etapa__fechas">2019-2022</span></h3>
+        <ul class="cv-lineas">
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2021</p>
+            <p class="cv-linea__titulo">Campeona de España</p>
+            <p class="cv-linea__detalle">Campeonato de España de recorrido de 3D</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2021</p>
+            <p class="cv-linea__titulo">Selección española</p>
+            <p class="cv-linea__detalle">Campeonato de Europa de 3D · Maribor (Eslovenia)</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2019</p>
+            <p class="cv-linea__titulo">Selección española · 11ª posición</p>
+            <p class="cv-linea__detalle">Campeonato del Mundo · Canadá</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2019</p>
+            <p class="cv-linea__titulo">Reconocimiento DAN</p>
+            <p class="cv-linea__detalle">Deportista de alto nivel</p>
+          </li>
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2019-2022</p>
+            <p class="cv-linea__titulo">Campeona absoluta de Andalucía</p>
+            <p class="cv-linea__detalle">Y otras medallas en la modalidad</p>
+          </li>
+        </ul>
         <div class="cv__fotos">
           <figure style="--ar: 960 / 638">
-            <img src="img/cv-mundial-canada.jpg" alt="Luz Carrión con el arco desnudo y la equipación de España caminando por el recorrido en un bosque" width="960" height="638" loading="lazy">
-            <figcaption>En el recorrido del Campeonato del Mundo de Canadá, 2019</figcaption>
+            <a href="img/cv-mundial-canada.jpg"><img src="img/cv-mundial-canada.jpg" alt="Luz Carrión con el arco desnudo y la equipación de España caminando por el recorrido en un bosque" width="960" height="638" loading="lazy"></a>
+            <figcaption>En el recorrido del Mundial de Canadá, 2019</figcaption>
           </figure>
           <figure style="--ar: 1364 / 729">
-            <img src="img/cv-campeonato-espana-3d.jpg" alt="Luz Carrión levanta los brazos en el primer puesto del podio del Campeonato de España" width="1364" height="729" loading="lazy">
-            <figcaption>En lo más alto del podio: campeona de España de recorrido de 3D, 2021</figcaption>
+            <a href="img/cv-campeonato-espana-3d.jpg"><img src="img/cv-campeonato-espana-3d.jpg" alt="Luz Carrión levanta los brazos en el primer puesto del podio del Campeonato de España" width="1364" height="729" loading="lazy"></a>
+            <figcaption>En lo más alto del podio del Campeonato de España de 3D, 2021</figcaption>
           </figure>
           <figure style="--ar: 960 / 720">
-            <img src="img/cv-europeo-maribor.jpg" alt="Luz Carrión con dos compañeras del equipo nacional ante el mapa de recorridos del Campeonato de Europa de 3D de Maribor" width="960" height="720" loading="lazy">
-            <figcaption>Con el equipo nacional en el Campeonato de Europa de 3D de Maribor (Eslovenia), 2021</figcaption>
+            <a href="img/cv-europeo-maribor.jpg"><img src="img/cv-europeo-maribor.jpg" alt="Luz Carrión con dos compañeras del equipo nacional ante el mapa de recorridos del Campeonato de Europa de 3D de Maribor" width="960" height="720" loading="lazy"></a>
+            <figcaption>Con el equipo nacional en el Europeo de 3D de Maribor, 2021</figcaption>
           </figure>
         </div>
-      </div>
+      </article>
 
-      <div class="cv__etapa">
-        <h3>Longbow · 2023-2024</h3>
-        <p>Entre 2023 y 2024 compito en la modalidad de longbow y obtengo diferentes medallas en las ligas nacional y autonómica.</p>
-      </div>
+      <article class="cv-etapa cv-etapa--oro">
+        <h3>Longbow <span class="cv-etapa__fechas">2023-2024</span></h3>
+        <ul class="cv-lineas">
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">2023-2024</p>
+            <p class="cv-linea__titulo">Medallas en las ligas nacional y autonómica</p>
+          </li>
+        </ul>
+      </article>
 
-      <div class="cv__etapa">
-        <h3>Etapa de técnico · desde 2024</h3>
-        <p>A partir del 2024 empiezo con la formación de Técnico Deportivo de Tiro con Arco y me empiezo a dedicar más a esta nueva etapa de técnico. Vuelvo a competir con el arco desnudo y consigo algunas medallas a nivel autonómico.</p>
-      </div>
+      <article class="cv-etapa cv-etapa--blanco">
+        <h3>Arco desnudo <span class="cv-etapa__fechas">desde 2024</span></h3>
+        <p class="cv-etapa__intro">Etapa centrada en la formación y el trabajo como Técnico Deportivo, sin dejar de competir.</p>
+        <ul class="cv-lineas">
+          <li class="cv-linea">
+            <p class="cv-linea__fecha">Desde 2024</p>
+            <p class="cv-linea__titulo">Medallas a nivel autonómico</p>
+          </li>
+        </ul>
+      </article>
 
       <p class="cv__volver">
         <a class="boton boton--oro" href="index.html#contacto">Escríbeme</a>
@@ -133,6 +246,13 @@
     </section>
   </main>
 
+  <!-- Visor de fotos: se abre al pulsar una foto -->
+  <dialog class="visor" aria-label="Foto ampliada">
+    <button class="visor__cerrar" type="button" aria-label="Cerrar">×</button>
+    <img src="" alt="">
+    <p class="visor__pie"></p>
+  </dialog>
+
   <footer class="pie">
     <div class="pie__club">
       <img src="img/logo-carrion-birds-circular.webp" alt="Carrion Birds, Just Barebow" width="800" height="800" loading="lazy">
@@ -140,6 +260,32 @@
       <p><a href="privacidad.html">Política de privacidad</a> · <a href="agradecimientos.html">Agradecimientos</a></p>
     </div>
   </footer>
+
+  <script>
+    // Abre las fotos en grande dentro de la página.
+    // Si JavaScript falla, el enlace abre la foto sola.
+    (function () {
+      var visor = document.querySelector(".visor");
+      if (!visor || !visor.showModal) return;
+      var img = visor.querySelector("img");
+      var pie = visor.querySelector(".visor__pie");
+
+      document.querySelectorAll(".cv__fotos a").forEach(function (enlace) {
+        enlace.addEventListener("click", function (e) {
+          e.preventDefault();
+          var miniatura = enlace.querySelector("img");
+          var texto = enlace.parentNode.querySelector("figcaption");
+          img.src = enlace.href;
+          img.alt = miniatura.alt;
+          pie.textContent = texto ? texto.textContent : "";
+          visor.showModal();
+        });
+      });
+
+      // Se cierra al pulsar en cualquier sitio, con la X o con la tecla Esc
+      visor.addEventListener("click", function () { visor.close(); });
+    })();
+  </script>
 
 </body>
 </html>

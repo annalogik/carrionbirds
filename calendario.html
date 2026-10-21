@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendario Carrion Birds · Temporada 2026-2027</title>
+  <meta name="description" content="Calendario de competiciones de tiro con arco de la temporada 2026-2027: 3D, campo, sala, aire libre, Run Archery y tiradas sociales, a cuáles asiste Carrion Birds y sus medallas.">
+  <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="https://www.carrionbirds.es/calendario.html">
+
+  <!-- Vista previa al compartir el enlace (WhatsApp, Telegram, Facebook...) -->
+  <meta property="og:site_name" content="Carrion Birds">
+  <meta property="og:title" content="Calendario Carrion Birds · Temporada 2026-2027">
+  <meta property="og:description" content="Competiciones y tiradas sociales de la temporada, a cuáles vamos y nuestras medallas.">
+  <meta property="og:url" content="https://www.carrionbirds.es/calendario.html">
+  <meta property="og:image" content="https://www.carrionbirds.es/img/logo-carrion-birds-circular.png">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="800">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="css/styles.css?v=8">
+</head>
+<body class="cal">
+
+  <header class="cabecera">
+    <a class="marca" href="index.html" aria-label="Volver a la página principal">
+      <img src="img/favicon.png" alt="" width="40" height="40">
+      <span>Carrion Birds</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="bloque cal__portada">
+      <h1>Calendario Carrion Birds</h1>
+      <p class="perfil__cargo">Temporada 2026-2027</p>
+      <p class="cal__intro">Competiciones y tiradas sociales de la temporada, a cuáles vamos y las medallas que hemos conseguido. Pulsa en un filtro para ver solo un tipo de competición o una federación.</p>
+
+      <div class="cal__filtros" aria-label="Filtros">
+        <div class="cal__filtro">
+          <p class="cal__filtro-titulo">Tipo</p>
+          <div class="cal__botones" data-filtro="tipo">
+            <button type="button" data-valor="" aria-pressed="true">Todos</button>
+            <button type="button" data-valor="3d" aria-pressed="false">3D</button>
+            <button type="button" data-valor="campo" aria-pressed="false">Campo</button>
+            <button type="button" data-valor="sala" aria-pressed="false">Sala</button>
+            <button type="button" data-valor="aire" aria-pressed="false">Aire libre</button>
+            <button type="button" data-valor="run" aria-pressed="false">Run Archery</button>
+            <button type="button" data-valor="social" aria-pressed="false">Tirada social</button>
+          </div>
+        </div>
+        <div class="cal__filtro">
+          <p class="cal__filtro-titulo">Federación</p>
+          <div class="cal__botones" data-filtro="fed">
+            <button type="button" data-valor="" aria-pressed="true">Todas</button>
+            <button type="button" data-valor="fata" aria-pressed="false">Andaluza (FATA)</button>
+            <button type="button" data-valor="rfeta" aria-pressed="false">Española (RFETA)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque bloque--claro" id="proximas">
+      <h2>Próximas competiciones</h2>
+      <div class="cal-linea" data-lista="proximas"></div>
+      <p class="cal__vacio" hidden>No hay próximas competiciones con estos filtros.</p>
+    </section>
+
+    <section class="bloque" id="pasadas">
+      <h2>Competiciones pasadas</h2>
+      <div class="cal-linea" data-lista="pasadas"></div>
+      <p class="cal__vacio" hidden>Todavía no hay competiciones pasadas con estos filtros.</p>
+    </section>
+
+    <section class="bloque bloque--claro">
+      <h2>Referencias</h2>
+      <ul class="cal__referencias">
+        <li><a href="https://www.federarco.es/competiciones/competiciones-26-27/calendario-rfeta-26-27" target="_blank" rel="noopener">Calendario RFETA</a></li>
+        <li><a href="https://fatarco.es/calendario" target="_blank" rel="noopener">Calendario FATA</a></li>
+      </ul>
+      <p class="cv__volver">
+        <a class="boton boton--oro" href="index.html">Volver a Carrion Birds</a>
+      </p>
+    </section>
+
+    <noscript><p class="bloque">Para ver el calendario hace falta tener JavaScript activado.</p></noscript>
+  </main>
+
+  <footer class="pie">
+    <div class="pie__club">
+      <img src="img/logo-carrion-birds-circular.webp" alt="Carrion Birds, Just Barebow" width="800" height="800" loading="lazy">
+      <p>© 2026 Carrion Birds · Centro de tecnificación virtual</p>
+      <p><a href="privacidad.html">Política de privacidad</a> · <a href="agradecimientos.html">Agradecimientos</a></p>
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================
+       COMPETICIONES DE LA TEMPORADA
+       Para añadir una, copia una línea y cambia los datos:
+         nombre:  nombre de la competición
+         inicio:  primer día, en formato "año-mes-día" ("2027-01-22")
+         fin:     último día (si es un solo día, pon lo mismo que en inicio)
+         semana:  true si aún no se sabe el día exacto; entonces inicio y fin
+                  son el lunes y el domingo de esa semana
+         sede:    lugar
+         tipos:   uno o varios de "3d", "campo", "sala", "aire", "run", "social"
+         fed:     "fata" o "rfeta" (en las tiradas sociales no se pone)
+         organiza: club que organiza (solo en las tiradas sociales)
+         asisten: "si", "no" o "pc" (por confirmar)
+         medallas: cuando ya se ha celebrado, las medallas de Carrion Birds:
+                   [{ metal: "oro", categoria: "Arco desnudo femenino" }, ...]
+                   metal es "oro", "plata" o "bronce".
+                   Si fuimos y no hubo medallas, pon medallas: []
+                   Si aún no lo has rellenado, no pongas medallas y saldrá "pendiente".
+         resultado: texto en lugar del medallero cuando no hay medallas por jornada
+                    (por ejemplo, en la RAUS la clasificación sale al final)
+       El orden da igual: la página las ordena por fecha.
+       Las de cada mes pasan a "Competiciones pasadas" cuando acaba el mes.
+       ========================================================= */
+    var COMPETICIONES = [
+      // Tiradas sociales
+      { nombre: "VI Tirada de Insectos", inicio: "2026-09-20", fin: "2026-09-20", sede: "Baza", organiza: "Arqueros de Baza", tipos: ["social"], asisten: "si",
+        medallas: [{ metal: "plata", categoria: "Arco desnudo femenino" }, { metal: "bronce", categoria: "Arco desnudo femenino" }, { metal: "bronce", categoria: "Arco desnudo masculino" }] },
+      { nombre: "Tirada de Aves", inicio: "2026-10-11", fin: "2026-10-11", sede: "Priego de Córdoba", organiza: "Club Vara Negra", tipos: ["social"], asisten: "si",
+        medallas: [{ metal: "bronce", categoria: "Arco desnudo masculino" }] },
+      { nombre: "I Tirada de la Sabana Africana", inicio: "2026-11-08", fin: "2026-11-08", sede: "Granada", organiza: "Club Nazaríes", tipos: ["social"], asisten: "si" },
+
+      // Ligas y campeonatos
+      { nombre: "1ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-10", fin: "2026-10-11", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
+        resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
+      { nombre: "1ª Jornada Liga Andaluza de 3D", inicio: "2026-10-25", fin: "2026-10-25", sede: "Arcosur", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "2ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-31", fin: "2026-11-01", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
+        resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
+      { nombre: "3ª Jornada Liga Andaluza de Sala (RAUS) + Campeonatos Provinciales", inicio: "2026-11-14", fin: "2026-11-15", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si" },
+      { nombre: "2ª Jornada Liga Andaluza de 3D", inicio: "2026-11-22", fin: "2026-11-22", sede: "Purullena", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "Campeonato de Andalucía de 3D Indoor y Divisiones Varias en Sala", inicio: "2026-12-12", fin: "2026-12-13", sede: "La Carlota", tipos: ["3d", "sala"], fed: "fata", asisten: "si" },
+      { nombre: "Campeonato Provincial de Sala de Jaén", inicio: "2026-12-27", fin: "2026-12-27", sede: "Andújar", tipos: ["sala"], fed: "fata", asisten: "si" },
+      { nombre: "3ª Jornada Liga Andaluza de 3D", inicio: "2027-01-17", fin: "2027-01-17", sede: "Priego de Córdoba", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "Campeonato de España de 3D + Campeonato de España de Arco Tradicional, Longbow y Arco Desnudo en Sala", inicio: "2027-01-22", fin: "2027-01-24", sede: "Valdepeñas (Ciudad Real)", tipos: ["3d", "sala"], fed: "rfeta", asisten: "si" },
+      { nombre: "4ª Jornada Liga Andaluza de 3D", inicio: "2027-02-27", fin: "2027-02-28", sede: "Huelma", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "I Gran Premio de España de Campo y 3D", inicio: "2027-03-06", fin: "2027-03-07", sede: "Tarazona (Zaragoza)", tipos: ["campo", "3d"], fed: "rfeta", asisten: "si" },
+      { nombre: "I Gran Premio de España IBERDROLA de Tiro con Arco", inicio: "2027-04-03", fin: "2027-04-04", sede: "Andújar (Jaén)", tipos: ["aire"], fed: "rfeta", asisten: "si" },
+      { nombre: "Trofeo Nacional RFETA Run Archery", inicio: "2027-04-10", fin: "2027-04-11", sede: "Barcelona", tipos: ["run"], fed: "rfeta", asisten: "si" },
+      { nombre: "5ª Jornada Liga Andaluza de 3D", inicio: "2027-04-11", fin: "2027-04-11", sede: "Isla Cristina", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "Campeonato de Andalucía de Campo", inicio: "2027-04-18", fin: "2027-04-18", sede: "Alfacar", tipos: ["campo"], fed: "fata", asisten: "si" },
+      { nombre: "II Gran Premio de España de Campo y 3D", inicio: "2027-04-24", fin: "2027-04-25", sede: "Trillo (Guadalajara)", tipos: ["campo", "3d"], fed: "rfeta", asisten: "si" },
+      { nombre: "Campeonato de Andalucía de 3D", inicio: "2027-05-16", fin: "2027-05-16", sede: "Priego de Córdoba", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "Campeonato de España de 3D", inicio: "2027-05-14", fin: "2027-05-16", sede: "Andújar (Jaén)", tipos: ["3d"], fed: "rfeta", asisten: "si" },
+      { nombre: "II Gran Premio de España IBERDROLA de Tiro con Arco", inicio: "2027-05-22", fin: "2027-05-23", sede: "Madrid", tipos: ["aire"], fed: "rfeta", asisten: "pc" },
+      { nombre: "Campeonato de España de Campo", inicio: "2027-06-04", fin: "2027-06-06", sede: "Nájera (La Rioja)", tipos: ["campo"], fed: "rfeta", asisten: "si" },
+      { nombre: "Campeonato de España IBERDROLA de Arco Tradicional, Longbow y Arco Desnudo al Aire Libre", inicio: "2027-07-17", fin: "2027-07-18", sede: "Madrid", tipos: ["aire"], fed: "rfeta", asisten: "pc" }
+    ];
+
+    (function () {
+      var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+      var MESES_CORTOS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+      var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+
+      // Iconos de cada tipo (dibujados con líneas, toman el color del texto)
+      var TIPOS = {
+        "3d":    { texto: "3D",          icono: '<path d="M12 2.5 3.5 7v10l8.5 4.5 8.5-4.5V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/>' },
+        "campo": { texto: "Campo",       icono: '<path d="M2 20 9 7.5l4 6.5 3-4 6 10z"/>' },
+        "sala":  { texto: "Sala",        icono: '<path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9.5 21v-6h5v6"/>' },
+        "aire":  { texto: "Aire libre",  icono: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>' },
+        "run":   { texto: "Run Archery", icono: '<circle cx="15" cy="4" r="2"/><path d="M13.5 7.5 11 13.5M13.2 8.5 9 9.5l-2 2.5M13.2 8.5l3 3 3-.8M11 13.5l3.2 2.8-1.2 5M11 13.5 8 18H4"/>' },
+        "social": { texto: "Tirada social", icono: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2a5 5 0 0 1 5 5.3"/>' }
+      };
+      var FEDERACIONES = {
+        fata:  { texto: "FATA",  titulo: "Federación Andaluza de Tiro con Arco" },
+        rfeta: { texto: "RFETA", titulo: "Real Federación Española de Tiro con Arco" }
+      };
+      var ASISTIREMOS = { si: "Asistiremos", no: "No asistiremos", pc: "Asistencia por confirmar" };
+      var METALES = { oro: "Oro", plata: "Plata", bronce: "Bronce" };
+      var ORDEN_METAL = { oro: 0, plata: 1, bronce: 2 };
+      var ICONO_MEDALLA = '<svg class="cal-medalla__icono" viewBox="0 0 24 24" aria-hidden="true"><path class="cinta" d="M7.5 2 10.5 9M16.5 2 13.5 9"/><circle cx="12" cy="15" r="6.5"/><circle class="brillo" cx="12" cy="15" r="3.5"/></svg>';
+
+      function fecha(texto) {
+        var p = texto.split("-");
+        return new Date(+p[0], +p[1] - 1, +p[2]);
+      }
+
+      // "Sábado 10 y domingo 11 de octubre de 2026", etc.
+      function fechaLarga(c) {
+        var a = c.ini, b = c.fin;
+        var año = " de " + b.getFullYear();
+        if (c.semana) {
+          return "Semana del " + a.getDate() + " al " + b.getDate() + " de " + MESES[b.getMonth()] + año + " · día por concretar";
+        }
+        var diaA = DIAS[a.getDay()], diaB = DIAS[b.getDay()];
+        if (+a === +b) {
+          return mayuscula(diaA) + " " + a.getDate() + " de " + MESES[a.getMonth()] + año;
+        }
+        var mismoMes = a.getMonth() === b.getMonth();
+        var primero = mayuscula(diaA) + " " + a.getDate() + (mismoMes ? "" : " de " + MESES[a.getMonth()]);
+        var dias = (b - a) / 864e5;
+        if (dias === 1) return primero + " y " + diaB + " " + b.getDate() + " de " + MESES[b.getMonth()] + año;
+        return "Del " + diaA + " " + a.getDate() + (mismoMes ? "" : " de " + MESES[a.getMonth()]) + " al " + diaB + " " + b.getDate() + " de " + MESES[b.getMonth()] + año;
+      }
+      function mayuscula(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+
+      // Recuadro de la fecha: "10-11" y "oct"
+      function fechaCorta(c) {
+        var a = c.ini, b = c.fin;
+        var dias = +a === +b ? "" + a.getDate() : a.getDate() + "-" + b.getDate();
+        var mes = a.getMonth() === b.getMonth() ? MESES_CORTOS[a.getMonth()] : MESES_CORTOS[a.getMonth()] + "-" + MESES_CORTOS[b.getMonth()];
+        return '<span class="cal-fecha__dias">' + dias + '</span><span class="cal-fecha__mes">' + mes + "</span>";
+      }
+
+      // celebrada: ya pasó pero sigue en "Próximas" porque su mes no ha terminado
+      function etiquetas(c, celebrada) {
+        var html = c.tipos.map(function (t) {
+          return '<li class="cal-etiqueta cal-etiqueta--tipo"><svg viewBox="0 0 24 24" aria-hidden="true">' + TIPOS[t].icono + "</svg>" + TIPOS[t].texto + "</li>";
+        }).join("");
+        if (c.fed) {
+          var f = FEDERACIONES[c.fed];
+          html += '<li class="cal-etiqueta cal-etiqueta--' + c.fed + '" title="' + f.titulo + '">' + f.texto + "</li>";
+        }
+        if (c.organiza) html += '<li class="cal-etiqueta cal-etiqueta--club">Organiza: ' + c.organiza + "</li>";
+        if (c.semana) html += '<li class="cal-etiqueta cal-etiqueta--aviso">Fecha por concretar</li>';
+        if (celebrada) html += '<li class="cal-etiqueta cal-etiqueta--aviso">Celebrada</li>';
+        return html;
+      }
+
+      // Recuadro "Participación de Carrion Birds":
+      // antes de la competición dice si vamos; después, las medallas
+      function participacion(c, pasada) {
+        var contenido;
+        if (!pasada) {
+          contenido = '<p class="cal-part__estado cal-part__estado--' + c.asisten + '">' + ASISTIREMOS[c.asisten] + "</p>";
+        } else if (c.asisten === "no") {
+          contenido = '<p class="cal-part__estado cal-part__estado--no">No participamos</p>';
+        } else if (!c.medallas && c.resultado) {
+          contenido = '<p class="cal-part__estado cal-part__estado--pc">Participamos · ' + c.resultado + "</p>";
+        } else if (!c.medallas) {
+          contenido = '<p class="cal-part__estado cal-part__estado--pc">Participamos · medallero pendiente de actualizar</p>';
+        } else if (!c.medallas.length) {
+          contenido = '<p class="cal-part__estado cal-part__estado--si">Participamos · sin medallas esta vez</p>';
+        } else {
+          contenido = '<ul class="cal-medallas">' + c.medallas.slice().sort(function (a, b) {
+            return ORDEN_METAL[a.metal] - ORDEN_METAL[b.metal];
+          }).map(function (m) {
+            return '<li class="cal-medalla cal-medalla--' + m.metal + '">' + ICONO_MEDALLA +
+              "<strong>" + METALES[m.metal] + "</strong><span>" + m.categoria + "</span></li>";
+          }).join("") + "</ul>";
+        }
+        return '<div class="cal-part">' +
+          '<p class="cal-part__titulo"><img src="img/favicon.png" alt="" width="24" height="24">' +
+          (pasada && c.medallas && c.medallas.length ? "Medallero Carrion Birds" : "Participación de Carrion Birds") + "</p>" +
+          contenido + "</div>";
+      }
+
+      function tarjeta(c, enProximas) {
+        var pasada = c.fin < hoy;
+        var celebrada = pasada && enProximas;
+        return '<article class="cal-comp' + (celebrada ? " cal-comp--celebrada" : "") + '" data-tipos="' + c.tipos.join(" ") + '" data-fed="' + (c.fed || "") + '">' +
+          '<p class="cal-fecha' + (c.semana ? " cal-fecha--semana" : "") + '">' + fechaCorta(c) + "</p>" +
+          '<div class="cal-comp__texto">' +
+            "<h4>" + c.nombre + "</h4>" +
+            '<p class="cal-comp__cuando">' + fechaLarga(c) + "</p>" +
+            '<p class="cal-comp__sede"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>' + c.sede + "</p>" +
+            '<ul class="cal-etiquetas">' + etiquetas(c, celebrada) + "</ul>" +
+            participacion(c, pasada) +
+          "</div>" +
+        "</article>";
+      }
+
+      // --- Ordenar y repartir por meses ---
+      var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+      var inicioMesActual = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+
+      var lista = COMPETICIONES.map(function (c) {
+        var copia = Object.assign({}, c);
+        copia.ini = fecha(c.inicio); copia.fin = fecha(c.fin);
+        return copia;
+      }).sort(function (a, b) { return a.ini - b.ini || a.fin - b.fin; });
+
+      var meses = {};   // "2026-10" → competiciones de ese mes
+      lista.forEach(function (c) {
+        var clave = c.ini.getFullYear() + "-" + String(c.ini.getMonth() + 1).padStart(2, "0");
+        (meses[clave] = meses[clave] || []).push(c);
+      });
+
+      var claves = Object.keys(meses).sort();
+      var proximas = claves.filter(function (k) { return fecha(k + "-01") >= inicioMesActual; });
+      var pasadas = claves.filter(function (k) { return fecha(k + "-01") < inicioMesActual; }).reverse();   // la más reciente primero
+
+      function pintar(contenedor, clavesMes, enProximas) {
+        contenedor.innerHTML = clavesMes.map(function (k) {
+          var d = fecha(k + "-01");
+          return '<section class="cal-mes"><h3>' + mayuscula(MESES[d.getMonth()]) + " " + d.getFullYear() + "</h3>" +
+            meses[k].map(function (c) { return tarjeta(c, enProximas); }).join("") + "</section>";
+        }).join("");
+      }
+      pintar(document.querySelector('[data-lista="proximas"]'), proximas, true);
+      pintar(document.querySelector('[data-lista="pasadas"]'), pasadas, false);
+
+      // --- Filtros ---
+      var filtro = { tipo: "", fed: "" };
+
+      function aplicarFiltros() {
+        document.querySelectorAll(".cal-comp").forEach(function (el) {
+          var okTipo = !filtro.tipo || el.dataset.tipos.split(" ").indexOf(filtro.tipo) !== -1;
+          var okFed = !filtro.fed || el.dataset.fed === filtro.fed;
+          el.hidden = !(okTipo && okFed);
+        });
+        document.querySelectorAll(".cal-mes").forEach(function (mes) {
+          mes.hidden = !mes.querySelector(".cal-comp:not([hidden])");
+        });
+        document.querySelectorAll("[data-lista]").forEach(function (lista) {
+          var vacia = !lista.querySelector(".cal-mes:not([hidden])");
+          lista.hidden = vacia;
+          lista.parentNode.querySelector(".cal__vacio").hidden = !vacia;
+        });
+      }
+
+      document.querySelectorAll(".cal__botones").forEach(function (grupo) {
+        grupo.addEventListener("click", function (e) {
+          var boton = e.target.closest("button");
+          if (!boton) return;
+          grupo.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b === boton); });
+          filtro[grupo.dataset.filtro] = boton.dataset.valor;
+          aplicarFiltros();
+        });
+      });
+
+      aplicarFiltros();
+    })();
+  </script>
+
+</body>
+</html>

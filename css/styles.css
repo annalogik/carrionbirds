@@ -178,7 +178,7 @@ p { margin: 0 0 1rem; }
 }
 .contacto .entradilla { margin-left: auto; margin-right: auto; }
 
-.dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.columnas { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 2.5rem; }
 
 .etiquetas { display: flex; flex-wrap: wrap; gap: .6rem; }
 .etiquetas li {
@@ -307,7 +307,7 @@ p { margin: 0 0 1rem; }
   .portada { grid-template-columns: 1fr; min-height: 0; text-align: center; gap: 2.5rem; }
   .portada__lema { margin-left: auto; margin-right: auto; }
   .diana { order: -1; width: min(70%, 16rem); }
-  .perfil, .servicios, .dos-columnas, .formulario { grid-template-columns: 1fr; }
+  .perfil, .servicios, .columnas, .formulario { grid-template-columns: 1fr; }
   .perfil__foto { max-width: 22rem; }
   .galeria { grid-template-columns: 1fr; margin-top: 2.5rem; }
   .galeria__zona img { flex: none; height: auto; aspect-ratio: 4 / 5; }

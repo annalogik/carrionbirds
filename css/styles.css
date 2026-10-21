@@ -78,6 +78,7 @@ p { margin: 0 0 1rem; }
 .boton--oro:hover { background: var(--blanco); }
 .boton--borde { border: 2px solid var(--oro); color: var(--oro); padding: .45em 1.1em; font-size: 1rem; }
 .boton--borde:hover { background: var(--oro); color: var(--negro); }
+.boton__barra { font-family: var(--fuente-lectura); margin: 0 .2em; }   /* la fuente Edo no tiene "|" */
 
 /* ---------- Cabecera fija ---------- */
 .cabecera {
@@ -286,6 +287,7 @@ p { margin: 0 0 1rem; }
 .pie__referencias { max-width: var(--ancho); margin: 0 auto 3rem; text-align: center; }
 .pie__titulo { font-family: var(--fuente-texto); color: var(--blanco); font-size: 1.2rem; margin-bottom: 1.5rem; }
 .federaciones { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem 3rem; }
+.federaciones li { flex: 0 1 13rem; display: flex; justify-content: center; }   /* mismo ancho para todas, así quedan centradas bajo el título */
 .federaciones a {
   display: flex; flex-direction: column; align-items: center; gap: .75rem;
   max-width: 13rem; text-decoration: none; color: var(--gris-texto);

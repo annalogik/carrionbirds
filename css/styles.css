@@ -544,6 +544,7 @@ p { margin: 0 0 1rem; }
 .cal-etiqueta svg { width: 1.1em; height: 1.1em; fill: none; stroke: var(--oro); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .cal-etiqueta--fata  { border-color: #3fae6a; color: #6fd497; }    /* verde andaluz */
 .cal-etiqueta--rfeta { border-color: #ff5a60; color: #ff8a8e; }    /* rojo de la diana, aclarado */
+.cal-etiqueta--wa    { border-color: #e04fd0; color: #f08ae4; }    /* magenta del logo de World Archery */
 .cal-etiqueta--aviso { border-style: dashed; color: var(--gris-texto); }
 .cal-etiqueta--club { color: var(--gris-texto); }
 

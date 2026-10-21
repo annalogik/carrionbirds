@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=14">
+  <link rel="stylesheet" href="css/styles.css?v=15">
 </head>
 <body class="cal">
 
@@ -98,6 +98,7 @@
             <button type="button" data-valor="" aria-pressed="true">Todas</button>
             <button type="button" data-valor="fata" aria-pressed="false" title="Federación Andaluza de Tiro con Arco">FATA</button>
             <button type="button" data-valor="rfeta" aria-pressed="false" title="Real Federación Española de Tiro con Arco">RFETA</button>
+            <button type="button" data-valor="wa" aria-pressed="false" title="World Archery (Federación Mundial)">WA</button>
           </div>
         </div>
       </div>
@@ -150,7 +151,7 @@
                   son el lunes y el domingo de esa semana
          sede:    lugar
          tipos:   uno o varios de "3d", "campo", "sala", "aire", "run", "social"
-         fed:     "fata" o "rfeta" (en las tiradas sociales no se pone)
+         fed:     "fata", "rfeta" o "wa" (World Archery); en las tiradas sociales no se pone
          organiza: club que organiza (solo en las tiradas sociales)
          internacional: true en las competiciones fuera de España
          asisten: "si", "no" o "pc" (por confirmar)
@@ -182,7 +183,7 @@
       { nombre: "2ª Jornada Liga Andaluza de 3D", inicio: "2026-11-22", fin: "2026-11-22", sede: "Purullena", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato de Andalucía de 3D Indoor y Divisiones Varias en Sala", inicio: "2026-12-12", fin: "2026-12-13", sede: "La Carlota", tipos: ["3d", "sala"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato Provincial de Sala de Jaén", inicio: "2026-12-27", fin: "2026-12-27", sede: "Andújar", tipos: ["sala"], fed: "fata", asisten: "si" },
-      { nombre: "30th International Tournament", inicio: "2027-01-12", fin: "2027-01-17", sede: "Nîmes (Francia)", tipos: ["sala"], internacional: true, asisten: "si" },
+      { nombre: "30th International Tournament", inicio: "2027-01-12", fin: "2027-01-17", sede: "Nîmes (Francia)", tipos: ["sala"], fed: "wa", internacional: true, asisten: "si" },
       { nombre: "3ª Jornada Liga Andaluza de 3D", inicio: "2027-01-17", fin: "2027-01-17", sede: "Priego de Córdoba", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato de España de 3D + Campeonato de España de Arco Tradicional, Longbow y Arco Desnudo en Sala", inicio: "2027-01-22", fin: "2027-01-24", sede: "Valdepeñas (Ciudad Real)", tipos: ["3d", "sala"], fed: "rfeta", asisten: "si" },
       { nombre: "4ª Jornada Liga Andaluza de 3D", inicio: "2027-02-27", fin: "2027-02-28", sede: "Huelma", tipos: ["3d"], fed: "fata", asisten: "si" },
@@ -241,7 +242,8 @@
       };
       var FEDERACIONES = {
         fata:  { texto: "FATA",  titulo: "Federación Andaluza de Tiro con Arco" },
-        rfeta: { texto: "RFETA", titulo: "Real Federación Española de Tiro con Arco" }
+        rfeta: { texto: "RFETA", titulo: "Real Federación Española de Tiro con Arco" },
+        wa:    { texto: "WA",    titulo: "World Archery (Federación Mundial)" }
       };
       var ASISTIREMOS = { si: "Asistiremos", no: "No asistiremos", pc: "Asistencia por confirmar" };
       var METALES = { oro: "Oro", plata: "Plata", bronce: "Bronce" };

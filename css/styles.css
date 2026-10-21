@@ -540,6 +540,75 @@ p { margin: 0 0 1rem; }
 .cal-medalla--plata  { --metal: #c9cdd2; }
 .cal-medalla--bronce { --metal: #cd8a4c; }
 
+.cal-etiqueta--internacional { border-color: var(--azul); color: #5aa8ec; }
+.cal__botones button { display: inline-flex; align-items: center; gap: .4em; }
+.cal__botones svg { width: 1.15em; height: 1.15em; fill: none; stroke: var(--oro); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cal__botones button[aria-pressed="true"] svg { stroke: var(--negro); }
+
+/* Resumen del mes en curso: calendario + mapa */
+.cal-resumen {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 2rem; margin-top: 2.5rem;
+}
+.cal-resumen h3 { font-size: 1.6rem; margin-bottom: 1rem; }
+.cal-nuestro-mes__nombre { color: var(--oro); margin-left: .4rem; }
+
+/* Rejilla del mes: los findes son más anchos que los días de diario */
+.cal-nuestro-mes__rejilla {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, .55fr)) repeat(2, minmax(0, 1.6fr));
+  gap: 3px;
+}
+.cal-dia-nombre { font-size: .75rem; color: var(--gris-texto); text-align: center; padding-bottom: .3rem; }
+.cal-dia-nombre--finde { color: var(--oro); font-weight: 600; }
+.cal-dia {
+  min-height: 3.6rem; padding: .3rem; border-radius: 4px;
+  background: #111; display: flex; flex-direction: column; gap: .25rem; min-width: 0;
+}
+.cal-dia--finde { background: #1d1d1d; }
+.cal-dia--vacio { background: none; }
+.cal-dia--con { background: #2a2410; box-shadow: inset 0 0 0 1px rgba(242, 194, 48, .45); }
+.cal-dia--hoy .cal-dia__num { background: var(--oro); color: var(--negro); border-radius: 50%; }
+.cal-dia__num {
+  font-size: .75rem; color: var(--gris-texto); line-height: 1;
+  width: 1.4rem; height: 1.4rem; display: grid; place-items: center; flex: none;
+}
+.cal-dia--finde .cal-dia__num { color: var(--blanco); font-weight: 600; }
+.cal-dia svg { width: 1rem; height: 1rem; flex: none; fill: none; stroke: var(--oro); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cal-dia__icono { display: block; line-height: 0; }
+.cal-dia__comp {
+  display: flex; gap: .3rem; align-items: flex-start;
+  font-size: .72rem; line-height: 1.25; color: var(--blanco); text-decoration: none;
+}
+.cal-dia__comp span {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cal-dia__comp:hover span { color: var(--oro); }
+
+/* Mapa con pines */
+.cal-mapa__lienzo { position: relative; border-radius: 8px; overflow: hidden; background: #0d1a26; }   /* mar azul muy oscuro */
+.cal-mapa__lienzo img { width: 100%; height: auto; }
+.cal-pin {
+  position: absolute; display: flex; align-items: center; gap: .3rem;
+  transform: translate(-.45rem, -50%); text-decoration: none; white-space: nowrap;
+}
+.cal-pin__marca {
+  width: .9rem; height: .9rem; border-radius: 50%; flex: none;
+  background: var(--oro); border: 2px solid var(--negro);
+  box-shadow: 0 0 0 4px rgba(242, 194, 48, .25);
+}
+.cal-pin__nombre {
+  font-size: .72rem; color: var(--blanco);
+  background: rgba(0, 0, 0, .7); padding: .1rem .35rem; border-radius: 3px;
+}
+.cal-pin:hover .cal-pin__nombre { color: var(--oro); }
+.cal-pin--izq { flex-direction: row-reverse; transform: translate(calc(-100% + .45rem), -50%); }
+.cal-pin--abajo { flex-direction: column; transform: translate(-50%, -.45rem); }
+.cal-mapa__nota { font-size: .85rem; color: var(--gris-texto); font-style: italic; margin: .6rem 0 0; }
+
+@media (max-width: 860px) {
+  .cal-resumen { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 600px) {
   .cal-linea { padding-left: 1.25rem; }
   .cal-mes h3::before { left: calc(-1.25rem - 1px - .55rem); }

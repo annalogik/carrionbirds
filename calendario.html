@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=8">
+  <link rel="stylesheet" href="css/styles.css?v=9">
 </head>
 <body class="cal">
 
@@ -39,6 +39,22 @@
       <h1>Calendario Carrion Birds</h1>
       <p class="perfil__cargo">Temporada 2026-2027</p>
       <p class="cal__intro">Competiciones y tiradas sociales de la temporada, a cuáles vamos y las medallas que hemos conseguido. Pulsa en un filtro para ver solo un tipo de competición o una federación.</p>
+
+      <!-- Resumen del mes en curso: se rellena solo con los datos de abajo -->
+      <div class="cal-resumen">
+        <div class="cal-nuestro-mes">
+          <h3>Nuestro mes <span class="cal-nuestro-mes__nombre"></span></h3>
+          <div class="cal-nuestro-mes__rejilla"></div>
+        </div>
+        <div class="cal-mapa">
+          <h3>A dónde nos llevan nuestras flechas</h3>
+          <div class="cal-mapa__lienzo">
+            <img src="img/mapa-peninsula.svg" alt="Mapa de la península ibérica y el sur de Francia" width="600" height="454">
+            <div class="cal-mapa__pines"></div>
+          </div>
+          <p class="cal-mapa__nota"></p>
+        </div>
+      </div>
 
       <div class="cal__filtros" aria-label="Filtros">
         <div class="cal__filtro">
@@ -111,6 +127,7 @@
          tipos:   uno o varios de "3d", "campo", "sala", "aire", "run", "social"
          fed:     "fata" o "rfeta" (en las tiradas sociales no se pone)
          organiza: club que organiza (solo en las tiradas sociales)
+         internacional: true en las competiciones fuera de España
          asisten: "si", "no" o "pc" (por confirmar)
          medallas: cuando ya se ha celebrado, las medallas de Carrion Birds:
                    [{ metal: "oro", categoria: "Arco desnudo femenino" }, ...]
@@ -134,12 +151,13 @@
       { nombre: "1ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-10", fin: "2026-10-11", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
         resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
       { nombre: "1ª Jornada Liga Andaluza de 3D", inicio: "2026-10-25", fin: "2026-10-25", sede: "Arcosur", tipos: ["3d"], fed: "fata", asisten: "si" },
-      { nombre: "2ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-31", fin: "2026-11-01", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
+      { nombre: "2ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-31", fin: "2026-10-31", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
         resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
-      { nombre: "3ª Jornada Liga Andaluza de Sala (RAUS) + Campeonatos Provinciales", inicio: "2026-11-14", fin: "2026-11-15", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si" },
+      { nombre: "3ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-11-14", fin: "2026-11-14", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si" },
       { nombre: "2ª Jornada Liga Andaluza de 3D", inicio: "2026-11-22", fin: "2026-11-22", sede: "Purullena", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato de Andalucía de 3D Indoor y Divisiones Varias en Sala", inicio: "2026-12-12", fin: "2026-12-13", sede: "La Carlota", tipos: ["3d", "sala"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato Provincial de Sala de Jaén", inicio: "2026-12-27", fin: "2026-12-27", sede: "Andújar", tipos: ["sala"], fed: "fata", asisten: "si" },
+      { nombre: "30th International Tournament", inicio: "2027-01-12", fin: "2027-01-17", sede: "Nîmes (Francia)", tipos: ["sala"], internacional: true, asisten: "si" },
       { nombre: "3ª Jornada Liga Andaluza de 3D", inicio: "2027-01-17", fin: "2027-01-17", sede: "Priego de Córdoba", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato de España de 3D + Campeonato de España de Arco Tradicional, Longbow y Arco Desnudo en Sala", inicio: "2027-01-22", fin: "2027-01-24", sede: "Valdepeñas (Ciudad Real)", tipos: ["3d", "sala"], fed: "rfeta", asisten: "si" },
       { nombre: "4ª Jornada Liga Andaluza de 3D", inicio: "2027-02-27", fin: "2027-02-28", sede: "Huelma", tipos: ["3d"], fed: "fata", asisten: "si" },
@@ -156,6 +174,31 @@
       { nombre: "Campeonato de España IBERDROLA de Arco Tradicional, Longbow y Arco Desnudo al Aire Libre", inicio: "2027-07-17", fin: "2027-07-18", sede: "Madrid", tipos: ["aire"], fed: "rfeta", asisten: "pc" }
     ];
 
+    /* SITUACIÓN DE CADA SEDE EN EL MAPA: [latitud, longitud]
+       Si añades una competición en una sede nueva, añade aquí su situación
+       (en Google Maps: botón derecho sobre el sitio → copiar las coordenadas).
+       Si una sede no está en esta lista, sale debajo del mapa como "sin ubicación". */
+    var SEDES = {
+      "Alfacar": [37.238, -3.567],
+      "Andújar": [38.039, -4.051],
+      "Andújar (Jaén)": [38.039, -4.051],
+      "Barcelona": [41.387, 2.170],
+      "Baza": [37.490, -2.773],
+      "Granada": [37.177, -3.599],
+      "Huelma": [37.645, -3.454],
+      "Isla Cristina": [37.199, -7.321],
+      "La Carlota": [37.673, -4.930],
+      "Madrid": [40.417, -3.704],
+      "Nájera (La Rioja)": [42.416, -2.733],
+      "Nîmes (Francia)": [43.837, 4.360],
+      "Priego de Córdoba": [37.438, -4.195],
+      "Pulianas": [37.221, -3.610],
+      "Purullena": [37.320, -3.193],
+      "Tarazona (Zaragoza)": [41.905, -1.725],
+      "Trillo (Guadalajara)": [40.701, -2.593],
+      "Valdepeñas (Ciudad Real)": [38.762, -3.385]
+    };
+
     (function () {
       var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
       var MESES_CORTOS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
@@ -163,7 +206,7 @@
 
       // Iconos de cada tipo (dibujados con líneas, toman el color del texto)
       var TIPOS = {
-        "3d":    { texto: "3D",          icono: '<path d="M12 2.5 3.5 7v10l8.5 4.5 8.5-4.5V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/>' },
+        "3d":    { texto: "3D",          icono: '<path d="M8.6 10.2h6.8l-1.1 6-2.3 4.8-2.3-4.8z"/><path d="M8.6 10.8 4.8 9.4l2.6 3.4M15.4 10.8l3.8-1.4-2.6 3.4"/><path d="M9.8 10 7.4 5.6V2.2M7.4 5.6 3.6 4.2M14.2 10l2.4-4.4V2.2M16.6 5.6l3.8-1.4"/>' },   // cabeza de ciervo
         "campo": { texto: "Campo",       icono: '<path d="M2 20 9 7.5l4 6.5 3-4 6 10z"/>' },
         "sala":  { texto: "Sala",        icono: '<path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9.5 21v-6h5v6"/>' },
         "aire":  { texto: "Aire libre",  icono: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>' },
@@ -221,6 +264,7 @@
           html += '<li class="cal-etiqueta cal-etiqueta--' + c.fed + '" title="' + f.titulo + '">' + f.texto + "</li>";
         }
         if (c.organiza) html += '<li class="cal-etiqueta cal-etiqueta--club">Organiza: ' + c.organiza + "</li>";
+        if (c.internacional) html += '<li class="cal-etiqueta cal-etiqueta--internacional">Internacional</li>';
         if (c.semana) html += '<li class="cal-etiqueta cal-etiqueta--aviso">Fecha por concretar</li>';
         if (celebrada) html += '<li class="cal-etiqueta cal-etiqueta--aviso">Celebrada</li>';
         return html;
@@ -257,7 +301,7 @@
       function tarjeta(c, enProximas) {
         var pasada = c.fin < hoy;
         var celebrada = pasada && enProximas;
-        return '<article class="cal-comp' + (celebrada ? " cal-comp--celebrada" : "") + '" data-tipos="' + c.tipos.join(" ") + '" data-fed="' + (c.fed || "") + '">' +
+        return '<article class="cal-comp' + (celebrada ? " cal-comp--celebrada" : "") + '" id="' + c.id + '" data-tipos="' + c.tipos.join(" ") + '" data-fed="' + (c.fed || "") + '">' +
           '<p class="cal-fecha' + (c.semana ? " cal-fecha--semana" : "") + '">' + fechaCorta(c) + "</p>" +
           '<div class="cal-comp__texto">' +
             "<h4>" + c.nombre + "</h4>" +
@@ -278,6 +322,7 @@
         copia.ini = fecha(c.inicio); copia.fin = fecha(c.fin);
         return copia;
       }).sort(function (a, b) { return a.ini - b.ini || a.fin - b.fin; });
+      lista.forEach(function (c, i) { c.id = "competicion-" + (i + 1); });   // para enlazar desde el calendario y el mapa
 
       var meses = {};   // "2026-10" → competiciones de ese mes
       lista.forEach(function (c) {
@@ -298,6 +343,93 @@
       }
       pintar(document.querySelector('[data-lista="proximas"]'), proximas, true);
       pintar(document.querySelector('[data-lista="pasadas"]'), pasadas, false);
+
+      function iconoTipo(t) {
+        return '<svg viewBox="0 0 24 24" aria-hidden="true">' + TIPOS[t].icono + "</svg>";
+      }
+
+      // --- Iconos en los botones del filtro de tipo ---
+      document.querySelectorAll('[data-filtro="tipo"] button').forEach(function (b) {
+        if (TIPOS[b.dataset.valor]) b.insertAdjacentHTML("afterbegin", iconoTipo(b.dataset.valor));
+      });
+
+      // --- Cabecera: "Nuestro mes" (calendario del mes en curso) ---
+      var finMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+      var delMes = lista.filter(function (c) { return c.ini <= finMes && c.fin >= inicioMesActual; });
+
+      document.querySelector(".cal-nuestro-mes__nombre").textContent = mayuscula(MESES[hoy.getMonth()]) + " " + hoy.getFullYear();
+
+      (function pintarMes() {
+        var hueco = (inicioMesActual.getDay() + 6) % 7;   // la semana empieza en lunes
+        var html = ["L", "M", "X", "J", "V", "S", "D"].map(function (d, i) {
+          return '<span class="cal-dia-nombre' + (i > 4 ? " cal-dia-nombre--finde" : "") + '">' + d + "</span>";
+        }).join("");
+        var total = Math.ceil((hueco + finMes.getDate()) / 7) * 7;
+        for (var n = 0; n < total; n++) {
+          var finde = n % 7 > 4;
+          var d = n - hueco + 1;
+          if (d < 1 || d > finMes.getDate()) {
+            html += '<span class="cal-dia cal-dia--vacio' + (finde ? " cal-dia--finde" : "") + '"></span>';
+            continue;
+          }
+          var dia = new Date(hoy.getFullYear(), hoy.getMonth(), d);
+          var comps = delMes.filter(function (c) { return c.ini <= dia && c.fin >= dia; });
+          var clases = "cal-dia" + (finde ? " cal-dia--finde" : "") + (comps.length ? " cal-dia--con" : "") + (+dia === +hoy ? " cal-dia--hoy" : "");
+          // En el fin de semana se ve el nombre; entre semana, solo el icono
+          var contenido = comps.map(function (c) {
+            return finde
+              ? '<a class="cal-dia__comp" href="#' + c.id + '">' + iconoTipo(c.tipos[0]) + "<span>" + c.nombre + "</span></a>"
+              : '<a class="cal-dia__icono" href="#' + c.id + '" title="' + c.nombre + '">' + iconoTipo(c.tipos[0]) + "</a>";
+          }).join("");
+          html += '<div class="' + clases + '"><span class="cal-dia__num">' + d + "</span>" + contenido + "</div>";
+        }
+        document.querySelector(".cal-nuestro-mes__rejilla").innerHTML = html;
+      })();
+
+      // --- Cabecera: mapa con las sedes del mes ---
+      // Mismos límites y proyección que img/mapa-peninsula.svg
+      var MAPA = { lon: [-9.7, 5.2], lat: [35.8, 44.4] };
+      function merc(lat) { return Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)); }
+
+      (function pintarMapa() {
+        var pines = [], sinUbicacion = [];
+        delMes.forEach(function (c) {
+          var p = SEDES[c.sede];
+          if (!p) { sinUbicacion.push(c.sede); return; }
+          var x = (p[1] - MAPA.lon[0]) / (MAPA.lon[1] - MAPA.lon[0]) * 100;
+          var y = (merc(MAPA.lat[1]) - merc(p[0])) / (merc(MAPA.lat[1]) - merc(MAPA.lat[0])) * 100;
+          var sede = c.sede.replace(/ \(.*\)$/, "");   // "Andújar (Jaén)" → "Andújar"
+          // Sedes en el mismo sitio o casi (Granada y Pulianas) comparten pin
+          var mismo = pines.filter(function (q) { return Math.abs(q.x - x) < 2 && Math.abs(q.y - y) < 2; })[0];
+          if (mismo) {
+            if (mismo.sedes.indexOf(sede) === -1) mismo.sedes.push(sede);
+            mismo.nombres.push(c.nombre);
+            return;
+          }
+          pines.push({ sedes: [sede], x: x, y: y, id: c.id, nombres: [c.nombre] });
+        });
+
+        // El nombre va hacia el lado contrario del pin vecino más cercano, para no taparlo;
+        // a la izquierda si está cerca del borde derecho, y debajo si tiene vecinos a los dos lados
+        pines.forEach(function (p) {
+          var vecinos = pines.filter(function (q) { return q !== p && Math.abs(q.x - p.x) < 15 && Math.abs(q.y - p.y) < 6; });
+          var aDerecha = vecinos.some(function (q) { return q.x >= p.x; });
+          var aIzquierda = vecinos.some(function (q) { return q.x < p.x; });
+          if (aDerecha && aIzquierda) p.lado = " cal-pin--abajo";
+          else if (aDerecha || p.x > 75) p.lado = " cal-pin--izq";
+          else p.lado = "";
+        });
+
+        document.querySelector(".cal-mapa__pines").innerHTML = pines.map(function (p) {
+          return '<a class="cal-pin' + p.lado + '" href="#' + p.id + '" style="left:' + p.x.toFixed(2) + "%;top:" + p.y.toFixed(2) + '%" title="' + p.nombres.join(" · ") + '">' +
+            '<span class="cal-pin__marca"></span><span class="cal-pin__nombre">' + p.sedes.join(" · ") + "</span></a>";
+        }).join("");
+
+        var nota = document.querySelector(".cal-mapa__nota");
+        if (!delMes.length) nota.textContent = "Este mes no hay competiciones en el calendario.";
+        else if (sinUbicacion.length) nota.textContent = "Sin ubicación en el mapa: " + sinUbicacion.join(", ") + ".";
+        else nota.hidden = true;
+      })();
 
       // --- Filtros ---
       var filtro = { tipo: "", fed: "" };

@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/styles.css?v=3">
 </head>
 <body class="cv">
 
@@ -37,11 +37,14 @@
 
   <!--
     CÓMO ESTÁ HECHA ESTA PÁGINA
-    - Cada entrada del currículum es un <li class="cv-linea"> con tres partes:
-      fecha (amarillo), título (blanco) y detalle (gris, opcional).
+    - El currículum va agrupado por años. Cada año es un <div class="cv-periodo">:
+        <p class="cv-periodo__fecha">2018</p>            ← el año, grande y en amarillo
+        <ul class="cv-periodo__items">                    ← lo que pasó ese año, con viñetas
+          <li><strong>Título</strong> <span>Detalle en gris (opcional)</span></li>
+        </ul>
     - Las fotos van en <div class="cv__fotos">. Cada una lleva style="--ar: ancho / alto"
       con la proporción de la imagen. Al pulsarlas se abren en grande.
-    - En las fechas usa guion normal (2016-2018): la fuente Edo no tiene ni la raya larga ni la barra /.
+    - En los años usa guion normal (2016-2018): la fuente Edo no tiene ni la raya larga ni la barra /.
   -->
 
   <main>
@@ -60,28 +63,31 @@
     <!-- FORMACIÓN -->
     <section class="bloque bloque--claro" id="formacion">
       <h2>Formación</h2>
-      <ul class="cv-lineas">
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">Nov 2025</p>
-          <p class="cv-linea__titulo">Certificado “Archery Coaching”. KSL International Archery Theory, Level 1</p>
-          <p class="cv-linea__detalle">Campamento en Yucaipa (California)</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2023-2024</p>
-          <p class="cv-linea__titulo">Técnico Deportivo de Tiro con Arco Nivel 2</p>
-          <p class="cv-linea__detalle">CSD</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2021-2022</p>
-          <p class="cv-linea__titulo">Técnico Deportivo de Tiro con Arco Nivel 1</p>
-          <p class="cv-linea__detalle">CSD</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2020</p>
-          <p class="cv-linea__titulo">Curso de Especialista en Psicología aplicada al tiro con arco</p>
-          <p class="cv-linea__detalle">Impartido por Carlos Morillas · RFETA · Granada</p>
-        </li>
-      </ul>
+
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2025</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Certificado “Archery Coaching”. KSL International Archery Theory, Level 1</strong> <span>Campamento en Yucaipa (California), noviembre</span></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2023-2024</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Técnico Deportivo de Tiro con Arco Nivel 2</strong> <span>CSD</span></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2021-2022</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Técnico Deportivo de Tiro con Arco Nivel 1</strong> <span>CSD</span></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2020</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Curso de Especialista en Psicología aplicada al tiro con arco</strong> <span>Impartido por Carlos Morillas · RFETA · Granada</span></li>
+        </ul>
+      </div>
 
       <div class="cv__fotos">
         <figure style="--ar: 768 / 1024">
@@ -94,33 +100,38 @@
     <!-- EXPERIENCIA -->
     <section class="bloque" id="experiencia">
       <h2>Experiencia</h2>
-      <ul class="cv-lineas">
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2025-2026</p>
-          <p class="cv-linea__titulo">Entrenadora personal de tiro con arco</p>
-          <p class="cv-linea__detalle">Varios arqueros en distintos clubes</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2025</p>
-          <p class="cv-linea__titulo">Técnico en el Plan Andaluz de Tecnificación Deportiva</p>
-          <p class="cv-linea__detalle">Uno de mis alumnos fue seleccionado como arquero</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2024</p>
-          <p class="cv-linea__titulo">Técnico RFETA de la selección española</p>
-          <p class="cv-linea__detalle">Mundial de 3D · Mokrice (Eslovenia)</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">2021-2023</p>
-          <p class="cv-linea__titulo">Participación en el PAR 1</p>
-          <p class="cv-linea__detalle">Cursos 2021/2022 y 2022/2023</p>
-        </li>
-        <li class="cv-linea">
-          <p class="cv-linea__fecha">Hasta 2022</p>
-          <p class="cv-linea__titulo">Maestra</p>
-          <p class="cv-linea__detalle">Jubilada desde 2022</p>
-        </li>
-      </ul>
+
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2025-2026</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Entrenadora personal de tiro con arco</strong> <span>Varios arqueros en distintos clubes</span></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2025</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Técnico en el Plan Andaluz de Tecnificación Deportiva</strong> <span>Uno de mis alumnos fue seleccionado como arquero</span></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2024</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Técnico RFETA de la selección española</strong> <span>Mundial de 3D · Mokrice (Eslovenia)</span></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">2021-2023</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Participación en el PAR 1, curso 2022/2023</strong></li>
+          <li><strong>Participación en el PAR 1, curso 2021/2022</strong></li>
+        </ul>
+      </div>
+      <div class="cv-periodo">
+        <p class="cv-periodo__fecha">Hasta 2022</p>
+        <ul class="cv-periodo__items">
+          <li><strong>Maestra</strong> <span>Jubilada desde 2022</span></li>
+        </ul>
+      </div>
 
       <div class="cv__fotos">
         <figure style="--ar: 1050 / 1400">
@@ -139,28 +150,21 @@
       <h2>Palmarés como arquera</h2>
 
       <article class="cv-etapa cv-etapa--rojo">
-        <h3>Arco tradicional <span class="cv-etapa__fechas">2016-2018</span></h3>
-        <ul class="cv-lineas">
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2018</p>
-            <p class="cv-linea__titulo">Campeona de España</p>
-            <p class="cv-linea__detalle">Campeonato de España 3D en Sala</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2018</p>
-            <p class="cv-linea__titulo">Subcampeona de España</p>
-            <p class="cv-linea__detalle">Campeonato de España de Campo</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2018</p>
-            <p class="cv-linea__titulo">Selección española</p>
-            <p class="cv-linea__detalle">Campeonato de Europa · Gotemburgo</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2016-2018</p>
-            <p class="cv-linea__titulo">Medallas en ligas nacionales y autonómicas</p>
-          </li>
-        </ul>
+        <h3>Arco tradicional</h3>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">2018</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Campeona de España</strong> <span>Campeonato de España 3D en Sala</span></li>
+            <li><strong>Subcampeona de España</strong> <span>Campeonato de España de Campo</span></li>
+            <li><strong>Selección española</strong> <span>Campeonato de Europa · Gotemburgo</span></li>
+          </ul>
+        </div>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">2016-2018</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Medallas en ligas nacionales y autonómicas</strong></li>
+          </ul>
+        </div>
         <div class="cv__fotos">
           <figure style="--ar: 848 / 1491">
             <a href="img/cv-campeona-espana-3d-sala.jpg"><img src="img/cv-campeona-espana-3d-sala.jpg" alt="Luz Carrión sonriente con la medalla de oro al cuello en un pabellón" width="848" height="1491" loading="lazy"></a>
@@ -174,34 +178,27 @@
       </article>
 
       <article class="cv-etapa cv-etapa--azul">
-        <h3>Arco desnudo <span class="cv-etapa__fechas">2019-2022</span></h3>
-        <ul class="cv-lineas">
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2021</p>
-            <p class="cv-linea__titulo">Campeona de España</p>
-            <p class="cv-linea__detalle">Campeonato de España de recorrido de 3D</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2021</p>
-            <p class="cv-linea__titulo">Selección española</p>
-            <p class="cv-linea__detalle">Campeonato de Europa de 3D · Maribor (Eslovenia)</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2019</p>
-            <p class="cv-linea__titulo">Selección española · 11ª posición</p>
-            <p class="cv-linea__detalle">Campeonato del Mundo · Canadá</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2019</p>
-            <p class="cv-linea__titulo">Reconocimiento DAN</p>
-            <p class="cv-linea__detalle">Deportista de alto nivel</p>
-          </li>
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2019-2022</p>
-            <p class="cv-linea__titulo">Campeona absoluta de Andalucía</p>
-            <p class="cv-linea__detalle">Y otras medallas en la modalidad</p>
-          </li>
-        </ul>
+        <h3>Arco desnudo</h3>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">2021</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Campeona de España</strong> <span>Campeonato de España de recorrido de 3D</span></li>
+            <li><strong>Selección española</strong> <span>Campeonato de Europa de 3D · Maribor (Eslovenia)</span></li>
+          </ul>
+        </div>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">2019</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Selección española · 11ª posición</strong> <span>Campeonato del Mundo · Canadá</span></li>
+            <li><strong>Reconocimiento DAN</strong> <span>Deportista de alto nivel</span></li>
+          </ul>
+        </div>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">2019-2022</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Campeona absoluta de Andalucía</strong> <span>Y otras medallas en la modalidad</span></li>
+          </ul>
+        </div>
         <div class="cv__fotos">
           <figure style="--ar: 960 / 638">
             <a href="img/cv-mundial-canada.jpg"><img src="img/cv-mundial-canada.jpg" alt="Luz Carrión con el arco desnudo y la equipación de España caminando por el recorrido en un bosque" width="960" height="638" loading="lazy"></a>
@@ -219,24 +216,23 @@
       </article>
 
       <article class="cv-etapa cv-etapa--oro">
-        <h3>Longbow <span class="cv-etapa__fechas">2023-2024</span></h3>
-        <ul class="cv-lineas">
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">2023-2024</p>
-            <p class="cv-linea__titulo">Medallas en las ligas nacional y autonómica</p>
-          </li>
-        </ul>
+        <h3>Longbow</h3>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">2023-2024</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Medallas en las ligas nacional y autonómica</strong></li>
+          </ul>
+        </div>
       </article>
 
       <article class="cv-etapa cv-etapa--blanco">
-        <h3>Arco desnudo <span class="cv-etapa__fechas">desde 2024</span></h3>
-        <p class="cv-etapa__intro">Etapa centrada en la formación y el trabajo como Técnico Deportivo, sin dejar de competir.</p>
-        <ul class="cv-lineas">
-          <li class="cv-linea">
-            <p class="cv-linea__fecha">Desde 2024</p>
-            <p class="cv-linea__titulo">Medallas a nivel autonómico</p>
-          </li>
-        </ul>
+        <h3>Arco desnudo, de nuevo</h3>
+        <div class="cv-periodo">
+          <p class="cv-periodo__fecha">Desde 2024</p>
+          <ul class="cv-periodo__items">
+            <li><strong>Medallas a nivel autonómico</strong> <span>Etapa centrada en la formación y el trabajo como Técnico Deportivo, sin dejar de competir</span></li>
+          </ul>
+        </div>
       </article>
 
       <p class="cv__volver">

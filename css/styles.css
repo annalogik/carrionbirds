@@ -97,7 +97,19 @@ p { margin: 0 0 1rem; }
 .marca img { width: 40px; height: 40px; border-radius: 50%; }
 .menu { display: flex; gap: 1.25rem; font-family: var(--fuente-texto); }
 .menu a { text-decoration: none; color: var(--gris-texto); }
-.menu a:hover { color: var(--oro); }
+.menu a:hover, .menu a[aria-current="page"] { color: var(--oro); }
+.menu__solo-movil { display: none; }
+
+/* Botón del menú desplegable (tres rayas que se convierten en una X) */
+.menu-boton {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 2.75rem; height: 2.75rem; padding: 0 .65rem;
+  background: none; border: 2px solid var(--oro); border-radius: 50%; cursor: pointer;
+}
+.menu-boton span { display: block; height: 2px; background: var(--oro); border-radius: 2px; transition: transform .2s, opacity .2s; }
+.cabecera--menu-abierto .menu-boton span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.cabecera--menu-abierto .menu-boton span:nth-child(2) { opacity: 0; }
+.cabecera--menu-abierto .menu-boton span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---------- Portada ---------- */
 .portada {
@@ -306,10 +318,24 @@ p { margin: 0 0 1rem; }
 
 /* ---------- Móvil y tableta ---------- */
 @media (max-width: 860px) {
-  .menu { display: none; }
+  /* Menú desplegable: oculto hasta pulsar el botón; se abre bajo la cabecera */
+  .menu-boton { display: flex; }
+  .cabecera__privada { display: none; }   /* en el móvil va dentro del menú */
+  .menu {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    background: rgba(0, 0, 0, .97); border-bottom: 1px solid #333;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .6);
+  }
+  .cabecera--menu-abierto .menu { display: flex; }
+  .menu a { padding: .9rem var(--margen); font-size: 1.15rem; border-top: 1px solid #222; }
+  .menu .menu__solo-movil { display: block; color: var(--oro); }
   .portada { grid-template-columns: 1fr; min-height: 0; text-align: center; gap: 2.5rem; }
   .portada__lema { margin-left: auto; margin-right: auto; }
   .portada__acciones { justify-content: center; }
+  /* Botones del hero más pequeños y del mismo tamaño, en una sola línea */
+  .portada__acciones { flex-wrap: nowrap; gap: .6rem; }
+  .portada__acciones .boton { font-size: .95rem; padding: .55em 1.1em; border: 2px solid var(--oro); }
   .diana { order: -1; width: min(70%, 16rem); }
   .perfil, .servicios, .columnas, .formulario { grid-template-columns: 1fr; }
   .perfil__foto { max-width: 22rem; }

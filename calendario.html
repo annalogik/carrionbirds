@@ -23,15 +23,28 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=11">
+  <link rel="stylesheet" href="css/styles.css?v=13">
 </head>
 <body class="cal">
 
   <header class="cabecera">
-    <a class="marca" href="index.html" aria-label="Volver a la página principal">
+    <a class="marca" href="index.html" aria-label="Carrion Birds, volver a la página principal">
       <img src="img/favicon.png" alt="" width="40" height="40">
       <span>Carrion Birds</span>
     </a>
+    <nav class="menu" id="menu-principal" aria-label="Secciones">
+      <a href="index.html#centro">El centro</a>
+      <a href="index.html#conoceme">Conóceme</a>
+      <a href="index.html#contenido-centro">Contenido</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a href="calendario.html" aria-current="page">Calendario</a>
+      <a class="menu__solo-movil" href="https://classroom.google.com/" target="_blank" rel="noopener">Área privada</a>
+    </nav>
+    <a class="boton boton--borde cabecera__privada" href="https://classroom.google.com/" target="_blank" rel="noopener">Área privada</a>
+    <!-- Botón del menú desplegable: solo se ve en el móvil -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir el menú">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
   <main>
@@ -499,5 +512,6 @@
     })();
   </script>
 
+  <script src="js/menu.js?v=1"></script>
 </body>
 </html>

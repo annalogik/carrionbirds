@@ -28,7 +28,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=11">
+  <link rel="stylesheet" href="css/styles.css?v=13">
 </head>
 <body>
 
@@ -45,13 +45,19 @@
       <img src="img/favicon.png" alt="" width="40" height="40">
       <span>Carrion Birds</span>
     </a>
-    <nav class="menu" aria-label="Secciones">
+    <nav class="menu" id="menu-principal" aria-label="Secciones">
       <a href="#centro">El centro</a>
       <a href="#conoceme">Conóceme</a>
       <a href="#contenido-centro">Contenido</a>
       <a href="#contacto">Contacto</a>
+      <a href="calendario.html">Calendario</a>
+      <a class="menu__solo-movil" href="https://classroom.google.com/" target="_blank" rel="noopener">Área privada</a>
     </nav>
-    <a class="boton boton--borde" href="https://classroom.google.com/" target="_blank" rel="noopener">Área privada</a>
+    <a class="boton boton--borde cabecera__privada" href="https://classroom.google.com/" target="_blank" rel="noopener">Área privada</a>
+    <!-- Botón del menú desplegable: solo se ve en el móvil -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir el menú">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
   <main id="contenido">
@@ -63,8 +69,8 @@
         <h1>Centro de tecnificación virtual</h1>
         <p class="portada__lema">Carrion Birds cubre las disciplinas de arco desnudo, tradicional y longbow.</p>
         <div class="portada__acciones">
-          <a class="boton boton--oro" href="https://classroom.google.com/" target="_blank" rel="noopener">Acceso al área privada</a>
-          <a class="boton boton--borde" href="calendario.html">Calendario Carrion Birds</a>
+          <a class="boton boton--oro" href="https://classroom.google.com/" target="_blank" rel="noopener">Área privada</a>
+          <a class="boton boton--borde" href="calendario.html">Calendario</a>
         </div>
       </div>
       <div class="diana">
@@ -266,6 +272,7 @@
     </div>
   </footer>
 
+  <script src="js/menu.js?v=1"></script>
   <script>
     // Envía el formulario sin salir de la página y muestra el resultado debajo.
     // Si JavaScript falla, el formulario se envía igualmente a Formspree.

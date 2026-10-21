@@ -411,7 +411,7 @@ p { margin: 0 0 1rem; }
   font-size: .8rem; font-style: italic; line-height: 1.4;
   color: #9a9a9a; margin-top: .45rem;
 }
-.cv__volver { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+.cv__volver { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1rem; }   /* sin align-items, "Volver" se estira y su texto queda arriba */
 
 /* Visor de fotos ampliadas */
 .visor {

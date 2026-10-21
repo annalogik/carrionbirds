@@ -589,7 +589,28 @@ p { margin: 0 0 1rem; }
   gap: 2rem; margin-top: 2.5rem;
 }
 .cal-resumen h3 { font-size: 1.6rem; margin-bottom: 1rem; }
-.cal-nuestro-mes__nombre { color: var(--oro); margin-left: .4rem; }
+/* Título "Nuestro mes" con el selector del mes al lado */
+.cal-nuestro-mes__cabecera { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .75rem; margin-bottom: 1rem; }
+.cal-nuestro-mes__cabecera h3 { margin: 0; }
+.cal-nuestro-mes__elegir { display: flex; align-items: center; gap: .25rem; }
+.cal-nuestro-mes__selector {
+  font-family: var(--fuente-texto); font-size: 1.6rem; color: var(--oro);
+  background: none; border: 0; border-bottom: 2px dashed rgba(242, 194, 48, .5);
+  padding: 0 1.4rem 0 .2rem; cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  /* flechita ▾ dibujada, porque la fuente Edo no tiene ese carácter */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23f2c230' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .2rem center; background-size: .8rem;
+}
+.cal-nuestro-mes__selector:hover { border-bottom-color: var(--oro); }
+.cal-nuestro-mes__selector option { font-family: var(--fuente-lectura); font-size: 1rem; color: var(--blanco); background: var(--gris); }
+.cal-nuestro-mes__elegir button {
+  width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  border: 1px solid #555; background: none; color: var(--oro);
+  font: 1.2rem/1 var(--fuente-lectura); cursor: pointer;
+}
+.cal-nuestro-mes__elegir button:hover:not(:disabled) { border-color: var(--oro); }
+.cal-nuestro-mes__elegir button:disabled { opacity: .3; cursor: default; }
 
 /* Rejilla del mes: los findes son más anchos que los días de diario */
 .cal-nuestro-mes__rejilla {

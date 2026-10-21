@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=15">
+  <link rel="stylesheet" href="css/styles.css?v=16">
 </head>
 <body class="cal">
 
@@ -61,7 +61,15 @@
       </div>
       <div class="cal-resumen">
         <div class="cal-nuestro-mes">
-          <h3>Nuestro mes <span class="cal-nuestro-mes__nombre"></span></h3>
+          <div class="cal-nuestro-mes__cabecera">
+            <h3>Nuestro mes</h3>
+            <!-- Se puede elegir otro mes de la temporada; el mapa cambia con él -->
+            <div class="cal-nuestro-mes__elegir">
+              <button type="button" data-mes="-1" aria-label="Mes anterior">‹</button>
+              <select class="cal-nuestro-mes__selector" aria-label="Elegir mes"></select>
+              <button type="button" data-mes="1" aria-label="Mes siguiente">›</button>
+            </div>
+          </div>
           <div class="cal-nuestro-mes__rejilla"></div>
         </div>
         <div class="cal-mapa">
@@ -381,14 +389,20 @@
         if (TIPOS[b.dataset.valor]) b.insertAdjacentHTML("afterbegin", iconoTipo(b.dataset.valor));
       });
 
-      // --- Cabecera: "Nuestro mes" (calendario del mes en curso) ---
-      var finMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
-      var delMes = lista.filter(function (c) { return c.ini <= finMes && c.fin >= inicioMesActual; });
+      // --- Cabecera: "Nuestro mes" y mapa ---
+      // Se muestra el mes en curso; con el selector (o las flechas) se puede ver otro mes de la temporada.
+      var MAPA = { lon: [-9.7, 5.2], lat: [35.8, 44.4] };   // mismos límites y proyección que img/mapa-peninsula.svg
+      function merc(lat) { return Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)); }
 
-      document.querySelector(".cal-nuestro-mes__nombre").textContent = mayuscula(MESES[hoy.getMonth()]) + " " + hoy.getFullYear();
+      function competicionesDe(mes) {
+        var fin = new Date(mes.getFullYear(), mes.getMonth() + 1, 0);
+        return lista.filter(function (c) { return c.ini <= fin && c.fin >= mes; });
+      }
 
-      (function pintarMes() {
-        var hueco = (inicioMesActual.getDay() + 6) % 7;   // la semana empieza en lunes
+      function pintarMes(mes) {
+        var finMes = new Date(mes.getFullYear(), mes.getMonth() + 1, 0);
+        var delMes = competicionesDe(mes);
+        var hueco = (mes.getDay() + 6) % 7;   // la semana empieza en lunes
         var html = ["L", "M", "X", "J", "V", "S", "D"].map(function (d, i) {
           return '<span class="cal-dia-nombre' + (i > 4 ? " cal-dia-nombre--finde" : "") + '">' + d + "</span>";
         }).join("");
@@ -400,7 +414,7 @@
             html += '<span class="cal-dia cal-dia--vacio' + (finde ? " cal-dia--finde" : "") + '"></span>';
             continue;
           }
-          var dia = new Date(hoy.getFullYear(), hoy.getMonth(), d);
+          var dia = new Date(mes.getFullYear(), mes.getMonth(), d);
           var comps = delMes.filter(function (c) { return c.ini <= dia && c.fin >= dia; });
           var clases = "cal-dia" + (finde ? " cal-dia--finde" : "") + (comps.length ? " cal-dia--con" : "") + (+dia === +hoy ? " cal-dia--hoy" : "");
           // En el fin de semana se ve el nombre; entre semana, solo el icono
@@ -412,14 +426,10 @@
           html += '<div class="' + clases + '"><span class="cal-dia__num">' + d + "</span>" + contenido + "</div>";
         }
         document.querySelector(".cal-nuestro-mes__rejilla").innerHTML = html;
-      })();
+      }
 
-      // --- Cabecera: mapa con las sedes del mes ---
-      // Mismos límites y proyección que img/mapa-peninsula.svg
-      var MAPA = { lon: [-9.7, 5.2], lat: [35.8, 44.4] };
-      function merc(lat) { return Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)); }
-
-      (function pintarMapa() {
+      function pintarMapa(mes) {
+        var delMes = competicionesDe(mes);
         var pines = [], sinUbicacion = [];
         delMes.forEach(function (c) {
           var p = SEDES[c.sede];
@@ -441,50 +451,76 @@
           return '<a class="cal-pin" href="#' + p.id + '" style="left:' + p.x.toFixed(2) + "%;top:" + p.y.toFixed(2) + '%" title="' + p.nombres.join(" · ") + '">' +
             '<span class="cal-pin__marca"></span><span class="cal-pin__nombre">' + p.sedes.join(" · ") + "</span></a>";
         }).join("");
-
-        // Coloca cada nombre en el primer lado (derecha, izquierda, arriba, abajo)
-        // donde no se sale del mapa ni pisa otro pin u otro nombre
-        function colocarNombres() {
-          var lienzo = document.querySelector(".cal-mapa__lienzo").getBoundingClientRect();
-          var enlaces = Array.prototype.slice.call(document.querySelectorAll(".cal-pin"));
-          var ocupado = enlaces.map(function (a) { return a.querySelector(".cal-pin__marca").getBoundingClientRect(); });
-          function choca(r, o) { return r.left < o.right && r.right > o.left && r.top < o.bottom && r.bottom > o.top; }
-          enlaces.forEach(function (a, i) {
-            var nombre = a.querySelector(".cal-pin__nombre");
-            var lados = ["der", "izq", "arr", "aba"], elegido = null, dentro = null;
-            for (var j = 0; j < lados.length && !elegido; j++) {
-              a.dataset.lado = lados[j];
-              var r = nombre.getBoundingClientRect();
-              var cabe = r.left >= lienzo.left && r.right <= lienzo.right && r.top >= lienzo.top && r.bottom <= lienzo.bottom;
-              if (cabe && !dentro) dentro = lados[j];
-              if (cabe && !ocupado.some(function (o, k) { return k !== i && choca(r, o); })) elegido = lados[j];
-            }
-            a.dataset.lado = elegido || dentro || "der";
-            ocupado.push(nombre.getBoundingClientRect());
-          });
-        }
         colocarNombres();
-        var espera;
-        window.addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(colocarNombres, 150); });
-
-        // Móvil: botones para pasar del calendario al mapa, y se marcan solos al deslizar
-        var resumen = document.querySelector(".cal-resumen");
-        var pestanas = document.querySelectorAll(".cal-resumen__pestanas button");
-        pestanas.forEach(function (b) {
-          b.addEventListener("click", function () {
-            resumen.scrollTo({ left: resumen.children[+b.dataset.panel].offsetLeft - resumen.children[0].offsetLeft, behavior: "smooth" });
-          });
-        });
-        resumen.addEventListener("scroll", function () {
-          var actual = Math.round(resumen.scrollLeft / resumen.clientWidth);
-          pestanas.forEach(function (b) { b.setAttribute("aria-pressed", +b.dataset.panel === actual); });
-        }, { passive: true });
 
         var nota = document.querySelector(".cal-mapa__nota");
+        nota.hidden = false;
         if (!delMes.length) nota.textContent = "Este mes no hay competiciones en el calendario.";
         else if (sinUbicacion.length) nota.textContent = "Sin ubicación en el mapa: " + sinUbicacion.join(", ") + ".";
         else nota.hidden = true;
-      })();
+      }
+
+      // Coloca cada nombre del mapa en el primer lado (derecha, izquierda, arriba, abajo)
+      // donde no se sale del mapa ni pisa otro pin u otro nombre
+      function colocarNombres() {
+        var lienzo = document.querySelector(".cal-mapa__lienzo").getBoundingClientRect();
+        var enlaces = Array.prototype.slice.call(document.querySelectorAll(".cal-pin"));
+        var ocupado = enlaces.map(function (a) { return a.querySelector(".cal-pin__marca").getBoundingClientRect(); });
+        function choca(r, o) { return r.left < o.right && r.right > o.left && r.top < o.bottom && r.bottom > o.top; }
+        enlaces.forEach(function (a, i) {
+          var nombre = a.querySelector(".cal-pin__nombre");
+          var lados = ["der", "izq", "arr", "aba"], elegido = null, dentro = null;
+          for (var j = 0; j < lados.length && !elegido; j++) {
+            a.dataset.lado = lados[j];
+            var r = nombre.getBoundingClientRect();
+            var cabe = r.left >= lienzo.left && r.right <= lienzo.right && r.top >= lienzo.top && r.bottom <= lienzo.bottom;
+            if (cabe && !dentro) dentro = lados[j];
+            if (cabe && !ocupado.some(function (o, k) { return k !== i && choca(r, o); })) elegido = lados[j];
+          }
+          a.dataset.lado = elegido || dentro || "der";
+          ocupado.push(nombre.getBoundingClientRect());
+        });
+      }
+      var espera;
+      window.addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(colocarNombres, 150); });
+
+      // Selector del mes: todos los meses de la temporada (y el actual, aunque quede fuera)
+      var selector = document.querySelector(".cal-nuestro-mes__selector");
+      var primero = new Date(Math.min(lista[0].ini, inicioMesActual)); primero.setDate(1);
+      var ultimo = new Date(Math.max.apply(null, lista.map(function (c) { return +c.fin; }).concat(+inicioMesActual)));
+      var opciones = [];
+      for (var m = new Date(primero); m <= ultimo; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) opciones.push(m);
+      selector.innerHTML = opciones.map(function (m, i) {
+        return '<option value="' + i + '">' + mayuscula(MESES[m.getMonth()]) + " " + m.getFullYear() + "</option>";
+      }).join("");
+
+      var anterior = document.querySelector('[data-mes="-1"]');
+      var siguiente = document.querySelector('[data-mes="1"]');
+      function mostrarMes(i) {
+        selector.value = i;
+        anterior.disabled = i === 0;
+        siguiente.disabled = i === opciones.length - 1;
+        pintarMes(opciones[i]);
+        pintarMapa(opciones[i]);
+      }
+      selector.addEventListener("change", function () { mostrarMes(+selector.value); });
+      [anterior, siguiente].forEach(function (b) {
+        b.addEventListener("click", function () { mostrarMes(+selector.value + +b.dataset.mes); });
+      });
+      mostrarMes(opciones.findIndex(function (m) { return +m === +inicioMesActual; }));
+
+      // Móvil: botones para pasar del calendario al mapa, y se marcan solos al deslizar
+      var resumen = document.querySelector(".cal-resumen");
+      var pestanas = document.querySelectorAll(".cal-resumen__pestanas button");
+      pestanas.forEach(function (b) {
+        b.addEventListener("click", function () {
+          resumen.scrollTo({ left: resumen.children[+b.dataset.panel].offsetLeft - resumen.children[0].offsetLeft, behavior: "smooth" });
+        });
+      });
+      resumen.addEventListener("scroll", function () {
+        var actual = Math.round(resumen.scrollLeft / resumen.clientWidth);
+        pestanas.forEach(function (b) { b.setAttribute("aria-pressed", +b.dataset.panel === actual); });
+      }, { passive: true });
 
       // --- Filtros ---
       var filtro = { tipo: "", fed: "" };

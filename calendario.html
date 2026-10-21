@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=9">
+  <link rel="stylesheet" href="css/styles.css?v=10">
 </head>
 <body class="cal">
 
@@ -40,7 +40,12 @@
       <p class="perfil__cargo">Temporada 2026-2027</p>
       <p class="cal__intro">Competiciones y tiradas sociales de la temporada, a cuáles vamos y las medallas que hemos conseguido. Pulsa en un filtro para ver solo un tipo de competición o una federación.</p>
 
-      <!-- Resumen del mes en curso: se rellena solo con los datos de abajo -->
+      <!-- Resumen del mes en curso: se rellena solo con los datos de abajo.
+           En el móvil se ve una cosa cada vez y se pasa de una a otra deslizando o con estos botones. -->
+      <div class="cal-resumen__pestanas">
+        <button type="button" data-panel="0" aria-pressed="true">Calendario</button>
+        <button type="button" data-panel="1" aria-pressed="false">Mapa</button>
+      </div>
       <div class="cal-resumen">
         <div class="cal-nuestro-mes">
           <h3>Nuestro mes <span class="cal-nuestro-mes__nombre"></span></h3>
@@ -73,8 +78,8 @@
           <p class="cal__filtro-titulo">Federación</p>
           <div class="cal__botones" data-filtro="fed">
             <button type="button" data-valor="" aria-pressed="true">Todas</button>
-            <button type="button" data-valor="fata" aria-pressed="false">Andaluza (FATA)</button>
-            <button type="button" data-valor="rfeta" aria-pressed="false">Española (RFETA)</button>
+            <button type="button" data-valor="fata" aria-pressed="false" title="Federación Andaluza de Tiro con Arco">FATA</button>
+            <button type="button" data-valor="rfeta" aria-pressed="false" title="Real Federación Española de Tiro con Arco">RFETA</button>
           </div>
         </div>
       </div>
@@ -148,7 +153,7 @@
       { nombre: "I Tirada de la Sabana Africana", inicio: "2026-11-08", fin: "2026-11-08", sede: "Granada", organiza: "Club Nazaríes", tipos: ["social"], asisten: "si" },
 
       // Ligas y campeonatos
-      { nombre: "1ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-10", fin: "2026-10-11", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
+      { nombre: "1ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-10", fin: "2026-10-10", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
         resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
       { nombre: "1ª Jornada Liga Andaluza de 3D", inicio: "2026-10-25", fin: "2026-10-25", sede: "Arcosur", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "2ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-31", fin: "2026-10-31", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
@@ -182,6 +187,7 @@
       "Alfacar": [37.238, -3.567],
       "Andújar": [38.039, -4.051],
       "Andújar (Jaén)": [38.039, -4.051],
+      "Arcosur": [37.746, -3.694],   // La Guardia de Jaén
       "Barcelona": [41.387, 2.170],
       "Baza": [37.490, -2.773],
       "Granada": [37.177, -3.599],
@@ -409,21 +415,48 @@
           pines.push({ sedes: [sede], x: x, y: y, id: c.id, nombres: [c.nombre] });
         });
 
-        // El nombre va hacia el lado contrario del pin vecino más cercano, para no taparlo;
-        // a la izquierda si está cerca del borde derecho, y debajo si tiene vecinos a los dos lados
-        pines.forEach(function (p) {
-          var vecinos = pines.filter(function (q) { return q !== p && Math.abs(q.x - p.x) < 15 && Math.abs(q.y - p.y) < 6; });
-          var aDerecha = vecinos.some(function (q) { return q.x >= p.x; });
-          var aIzquierda = vecinos.some(function (q) { return q.x < p.x; });
-          if (aDerecha && aIzquierda) p.lado = " cal-pin--abajo";
-          else if (aDerecha || p.x > 75) p.lado = " cal-pin--izq";
-          else p.lado = "";
-        });
-
         document.querySelector(".cal-mapa__pines").innerHTML = pines.map(function (p) {
-          return '<a class="cal-pin' + p.lado + '" href="#' + p.id + '" style="left:' + p.x.toFixed(2) + "%;top:" + p.y.toFixed(2) + '%" title="' + p.nombres.join(" · ") + '">' +
+          return '<a class="cal-pin" href="#' + p.id + '" style="left:' + p.x.toFixed(2) + "%;top:" + p.y.toFixed(2) + '%" title="' + p.nombres.join(" · ") + '">' +
             '<span class="cal-pin__marca"></span><span class="cal-pin__nombre">' + p.sedes.join(" · ") + "</span></a>";
         }).join("");
+
+        // Coloca cada nombre en el primer lado (derecha, izquierda, arriba, abajo)
+        // donde no se sale del mapa ni pisa otro pin u otro nombre
+        function colocarNombres() {
+          var lienzo = document.querySelector(".cal-mapa__lienzo").getBoundingClientRect();
+          var enlaces = Array.prototype.slice.call(document.querySelectorAll(".cal-pin"));
+          var ocupado = enlaces.map(function (a) { return a.querySelector(".cal-pin__marca").getBoundingClientRect(); });
+          function choca(r, o) { return r.left < o.right && r.right > o.left && r.top < o.bottom && r.bottom > o.top; }
+          enlaces.forEach(function (a, i) {
+            var nombre = a.querySelector(".cal-pin__nombre");
+            var lados = ["der", "izq", "arr", "aba"], elegido = null, dentro = null;
+            for (var j = 0; j < lados.length && !elegido; j++) {
+              a.dataset.lado = lados[j];
+              var r = nombre.getBoundingClientRect();
+              var cabe = r.left >= lienzo.left && r.right <= lienzo.right && r.top >= lienzo.top && r.bottom <= lienzo.bottom;
+              if (cabe && !dentro) dentro = lados[j];
+              if (cabe && !ocupado.some(function (o, k) { return k !== i && choca(r, o); })) elegido = lados[j];
+            }
+            a.dataset.lado = elegido || dentro || "der";
+            ocupado.push(nombre.getBoundingClientRect());
+          });
+        }
+        colocarNombres();
+        var espera;
+        window.addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(colocarNombres, 150); });
+
+        // Móvil: botones para pasar del calendario al mapa, y se marcan solos al deslizar
+        var resumen = document.querySelector(".cal-resumen");
+        var pestanas = document.querySelectorAll(".cal-resumen__pestanas button");
+        pestanas.forEach(function (b) {
+          b.addEventListener("click", function () {
+            resumen.scrollTo({ left: resumen.children[+b.dataset.panel].offsetLeft - resumen.children[0].offsetLeft, behavior: "smooth" });
+          });
+        });
+        resumen.addEventListener("scroll", function () {
+          var actual = Math.round(resumen.scrollLeft / resumen.clientWidth);
+          pestanas.forEach(function (b) { b.setAttribute("aria-pressed", +b.dataset.panel === actual); });
+        }, { passive: true });
 
         var nota = document.querySelector(".cal-mapa__nota");
         if (!delMes.length) nota.textContent = "Este mes no hay competiciones en el calendario.";

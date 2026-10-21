@@ -445,14 +445,25 @@ p { margin: 0 0 1rem; }
 .cal__portada h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); margin-bottom: .75rem; }
 .cal__intro { color: var(--gris-texto); max-width: 40rem; }
 
-/* Filtros: botones en forma de etiqueta; el elegido va en amarillo */
-.cal__filtros { display: grid; gap: 1.25rem; margin-top: 2rem; }
-.cal__filtro-titulo { font-family: var(--fuente-texto); color: var(--blanco); font-size: 1.15rem; margin-bottom: .5rem; }
-.cal__botones { display: flex; flex-wrap: wrap; gap: .5rem; }
+/* Filtros compactos: cada grupo en una sola línea, con el título delante.
+   Si los botones no caben, la línea se desliza de lado en vez de crecer hacia abajo. */
+.cal__filtros {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.75rem;
+  margin-top: 2rem; padding: .75rem 1rem;
+  border: 1px solid #2c2c2c; border-radius: 10px; background: #0d0d0d;
+}
+.cal__filtro { display: flex; align-items: center; gap: .6rem; min-width: 0; max-width: 100%; }
+.cal__filtro-titulo { margin: 0; flex: none; font-family: var(--fuente-texto); color: var(--blanco); font-size: 1rem; }
+.cal__botones {
+  display: flex; flex-wrap: nowrap; gap: .35rem; min-width: 0;
+  overflow-x: auto; scrollbar-width: none;
+}
+.cal__botones::-webkit-scrollbar { display: none; }
 .cal__botones button {
-  font: inherit; font-size: .95rem; color: var(--gris-texto);
+  flex: none; white-space: nowrap;
+  font: inherit; font-size: .85rem; color: var(--gris-texto);
   background: none; border: 1px solid #444; border-radius: 999px;
-  padding: .35em 1em; cursor: pointer;
+  padding: .3em .75em; cursor: pointer;
   transition: border-color .2s, color .2s, background-color .2s;
 }
 .cal__botones button:hover { border-color: var(--oro); color: var(--oro); }
@@ -588,28 +599,53 @@ p { margin: 0 0 1rem; }
 /* Mapa con pines */
 .cal-mapa__lienzo { position: relative; border-radius: 8px; overflow: hidden; background: #0d1a26; }   /* mar azul muy oscuro */
 .cal-mapa__lienzo img { width: 100%; height: auto; }
-.cal-pin {
-  position: absolute; display: flex; align-items: center; gap: .3rem;
-  transform: translate(-.45rem, -50%); text-decoration: none; white-space: nowrap;
-}
+/* El pin es un punto en la sede; el nombre se pone a un lado (data-lado lo elige el script) */
+.cal-pin { position: absolute; width: 0; height: 0; text-decoration: none; }
 .cal-pin__marca {
-  width: .9rem; height: .9rem; border-radius: 50%; flex: none;
+  position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
+  width: .9rem; height: .9rem; border-radius: 50%;
   background: var(--oro); border: 2px solid var(--negro);
   box-shadow: 0 0 0 4px rgba(242, 194, 48, .25);
 }
 .cal-pin__nombre {
-  font-size: .72rem; color: var(--blanco);
-  background: rgba(0, 0, 0, .7); padding: .1rem .35rem; border-radius: 3px;
+  position: absolute; white-space: nowrap;
+  font-size: .72rem; line-height: 1.3; color: var(--blanco);
+  background: rgba(0, 0, 0, .75); padding: .1rem .35rem; border-radius: 3px;
+  left: .75rem; top: 0; transform: translateY(-50%);   /* a la derecha */
 }
+.cal-pin[data-lado="izq"] .cal-pin__nombre { left: auto; right: .75rem; }
+.cal-pin[data-lado="arr"] .cal-pin__nombre { left: 0; top: auto; bottom: .7rem; transform: translateX(-50%); }
+.cal-pin[data-lado="aba"] .cal-pin__nombre { left: 0; top: .7rem; transform: translateX(-50%); }
 .cal-pin:hover .cal-pin__nombre { color: var(--oro); }
-.cal-pin--izq { flex-direction: row-reverse; transform: translate(calc(-100% + .45rem), -50%); }
-.cal-pin--abajo { flex-direction: column; transform: translate(-50%, -.45rem); }
 .cal-mapa__nota { font-size: .85rem; color: var(--gris-texto); font-style: italic; margin: .6rem 0 0; }
 
+/* Botones Calendario / Mapa: solo en pantallas estrechas */
+.cal-resumen__pestanas { display: none; }
+
 @media (max-width: 860px) {
-  .cal-resumen { grid-template-columns: minmax(0, 1fr); }
+  /* Calendario y mapa uno al lado del otro; se ve uno cada vez y se desliza de lado */
+  .cal-resumen__pestanas {
+    display: inline-flex; margin-top: 2rem;
+    border: 1px solid #444; border-radius: 999px; padding: 3px;
+  }
+  .cal-resumen__pestanas button {
+    font: inherit; font-size: .9rem; color: var(--gris-texto);
+    background: none; border: 0; border-radius: 999px; padding: .35em 1.1em; cursor: pointer;
+  }
+  .cal-resumen__pestanas button[aria-pressed="true"] { background: var(--oro); color: var(--negro); }
+  .cal-resumen {
+    display: flex; gap: 1rem; margin-top: 1rem; align-items: flex-start;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .cal-resumen::-webkit-scrollbar { display: none; }
+  .cal-resumen > * { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
+  .cal-resumen h3 { font-size: 1.35rem; }
 }
 @media (max-width: 600px) {
+  .cal__filtros { flex-direction: column; align-items: stretch; padding: .6rem .75rem; gap: .5rem; }
+  /* un degradado a la derecha avisa de que hay más botones deslizando */
+  .cal__botones { -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); padding-right: 1.5rem; }
   .cal-linea { padding-left: 1.25rem; }
   .cal-mes h3::before { left: calc(-1.25rem - 1px - .55rem); }
   .cal-comp { grid-template-columns: 4rem minmax(0, 1fr); gap: .9rem; }

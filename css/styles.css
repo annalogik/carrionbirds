@@ -224,7 +224,7 @@ p { margin: 0 0 1rem; }
 
 /* ---------- Conóceme ----------
    Arriba: foto vertical de la entrenadora + texto.
-   Debajo: foto de grupo (horizontal) y Archery Zone (vertical) a la misma altura. */
+   Debajo: foto de grupo (horizontal) y La Jaula (vertical) a la misma altura. */
 .perfil {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
   gap: 3rem; align-items: start;
@@ -250,6 +250,7 @@ p { margin: 0 0 1rem; }
 .galeria__grupo img { aspect-ratio: 3 / 2; }
 .galeria__zona img { flex: 1; min-height: 0; height: 100%; object-position: center 45%; }
 .galeria figcaption { font-size: .9rem; color: var(--gris-texto); margin-top: .6rem; }
+.galeria figcaption a, .servicio li a { color: var(--oro); text-underline-offset: .2em; }   /* enlace al vídeo de La Jaula */
 
 /* ---------- Qué incluye: cada bloque lleva un color de la diana ---------- */
 .servicios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }

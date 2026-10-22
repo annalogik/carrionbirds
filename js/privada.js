@@ -18,7 +18,6 @@
         '<a class="boton boton--oro aviso__ir" href="#" target="_blank" rel="noopener">Ir a Classroom</a>' +
         '<button class="boton boton--borde aviso__quedarme" type="button">Quedarme aquí</button>' +
       "</div>" +
-      '<p class="aviso__nota">¿Aún no formas parte del centro? <a href="index.html#contacto">Escríbeme</a></p>' +
     "</div>";
   document.body.appendChild(aviso);
 
@@ -27,7 +26,6 @@
   ir.addEventListener("click", cerrar);   // se abre Classroom en otra pestaña y el aviso se cierra
   aviso.querySelector(".aviso__cerrar").addEventListener("click", cerrar);
   aviso.querySelector(".aviso__quedarme").addEventListener("click", cerrar);
-  aviso.querySelector(".aviso__nota a").addEventListener("click", cerrar);
   aviso.addEventListener("click", function (e) { if (e.target === aviso) cerrar(); });   // toque fuera de la caja
 
   document.addEventListener("click", function (e) {

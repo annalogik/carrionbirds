@@ -367,11 +367,9 @@ p { margin: 0 0 1rem; }
 .aviso__logo { width: 3.5rem; height: 3.5rem; border-radius: 50%; margin: 0 auto .75rem; }
 .aviso h2 { font-family: var(--fuente-texto); color: var(--blanco); font-size: 1.6rem; margin-bottom: .75rem; }
 .aviso p { margin: 0 0 1.25rem; }
-.aviso__botones { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem; margin-bottom: 1rem; }
+.aviso__botones { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem; }
 .aviso__botones .boton { font-size: .95rem; padding: .55em 1.2em; border: 2px solid var(--oro); cursor: pointer; }
 .aviso__quedarme { background: none; font-family: var(--fuente-texto); }
-.aviso__nota { font-size: .85rem; margin: 0; }
-.aviso__nota a { color: var(--oro); }
 .aviso__cerrar {
   position: absolute; top: .6rem; right: .6rem;
   width: 2.25rem; height: 2.25rem; border-radius: 50%;

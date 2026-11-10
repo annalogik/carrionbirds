@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/Karatula.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/Edo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=19">
+  <link rel="stylesheet" href="css/styles.css?v=20">
 </head>
 <body class="cal">
 
@@ -104,7 +104,6 @@
             <button type="button" data-valor="" aria-pressed="true">Todas</button>
             <button type="button" data-valor="fata" aria-pressed="false" title="Federación Andaluza de Tiro con Arco">FATA</button>
             <button type="button" data-valor="rfeta" aria-pressed="false" title="Real Federación Española de Tiro con Arco">RFETA</button>
-            <button type="button" data-valor="wa" aria-pressed="false" title="World Archery (Federación Mundial)">WA</button>
           </div>
         </div>
       </div>
@@ -160,7 +159,8 @@
          fed:     "fata", "rfeta" o "wa" (World Archery); en las tiradas sociales no se pone
          organiza: club que organiza (solo en las tiradas sociales)
          internacional: true en las competiciones fuera de España
-         asisten: "si", "no" o "pc" (por confirmar)
+         asisten: "si", "no" o "pc" (por confirmar); no se muestra antes de la
+                  competición, solo después ("No participamos" si es "no")
          medallas: cuando ya se ha celebrado, las medallas de Carrion Birds:
                    [{ metal: "oro", categoria: "Arco desnudo femenino" }, ...]
                    metal es "oro", "plata" o "bronce".
@@ -168,6 +168,9 @@
                    Si aún no lo has rellenado, no pongas medallas y saldrá "pendiente".
          resultado: texto en lugar del medallero cuando no hay medallas por jornada
                     (por ejemplo, en la RAUS la clasificación sale al final)
+         posiciones: puestos en el ranking cuando no se dan medallas:
+                     [{ puesto: 2, categoria: "Arco desnudo femenino" }, ...]
+                     Se muestran agrupados por categoría, junto con el texto de "resultado".
        El orden da igual: la página las ordena por fecha.
        Las de cada mes pasan a "Competiciones pasadas" cuando acaba el mes.
        ========================================================= */
@@ -177,19 +180,23 @@
         medallas: [{ metal: "plata", categoria: "Arco desnudo femenino" }, { metal: "bronce", categoria: "Arco desnudo femenino" }, { metal: "bronce", categoria: "Arco desnudo masculino" }] },
       { nombre: "Tirada de Aves", inicio: "2026-10-11", fin: "2026-10-11", sede: "Priego de Córdoba", organiza: "Club Vara Negra", tipos: ["social"], asisten: "si",
         medallas: [{ metal: "bronce", categoria: "Arco desnudo masculino" }] },
-      { nombre: "I Tirada de la Sabana Africana", inicio: "2026-11-08", fin: "2026-11-08", sede: "Granada", organiza: "Club Nazaríes", tipos: ["social"], asisten: "si" },
+      { nombre: "I Tirada de la Sabana Africana", inicio: "2026-11-08", fin: "2026-11-08", sede: "Granada", organiza: "Club Nazaríes", tipos: ["social"], asisten: "si",
+        medallas: [{ metal: "oro", categoria: "Arco desnudo femenino" }, { metal: "bronce", categoria: "Arco desnudo femenino" },
+                   { metal: "plata", categoria: "Arco desnudo masculino" }, { metal: "bronce", categoria: "Arco desnudo masculino" }] },
 
       // Ligas y campeonatos
       { nombre: "1ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-10", fin: "2026-10-10", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
         resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
-      { nombre: "1ª Jornada Liga Andaluza de 3D", inicio: "2026-10-25", fin: "2026-10-25", sede: "Arcosur", tipos: ["3d"], fed: "fata", asisten: "si" },
+      { nombre: "1ª Jornada Liga Andaluza de 3D", inicio: "2026-10-25", fin: "2026-10-25", sede: "Arcosur", tipos: ["3d"], fed: "fata", asisten: "si",
+        resultado: "en esta jornada no se entregaron medallas",
+        posiciones: [{ puesto: 2, categoria: "Arco desnudo femenino" }, { puesto: 3, categoria: "Arco desnudo femenino" }, { puesto: 4, categoria: "Arco desnudo femenino" },
+                     { puesto: 2, categoria: "Arco desnudo masculino" }, { puesto: 5, categoria: "Arco desnudo masculino" }, { puesto: 7, categoria: "Arco desnudo masculino" }] },
       { nombre: "2ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-10-31", fin: "2026-10-31", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si",
         resultado: "la clasificación de la RAUS se publica al terminar las tres jornadas" },
       { nombre: "3ª Jornada Liga Andaluza de Sala (RAUS)", inicio: "2026-11-14", fin: "2026-11-14", sede: "Pulianas", tipos: ["sala"], fed: "fata", asisten: "si" },
       { nombre: "2ª Jornada Liga Andaluza de 3D", inicio: "2026-11-22", fin: "2026-11-22", sede: "Purullena", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato de Andalucía de 3D Indoor y Divisiones Varias en Sala", inicio: "2026-12-12", fin: "2026-12-13", sede: "La Carlota", tipos: ["3d", "sala"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato Provincial de Sala de Jaén", inicio: "2026-12-27", fin: "2026-12-27", sede: "Andújar", tipos: ["sala"], fed: "fata", asisten: "si" },
-      { nombre: "30th International Tournament", inicio: "2027-01-14", fin: "2027-01-17", sede: "Nîmes (Francia)", tipos: ["sala"], fed: "wa", internacional: true, asisten: "si" },
       { nombre: "3ª Jornada Liga Andaluza de 3D", inicio: "2027-01-17", fin: "2027-01-17", sede: "Priego de Córdoba", tipos: ["3d"], fed: "fata", asisten: "si" },
       { nombre: "Campeonato de España de 3D + Campeonato de España de Arco Tradicional, Longbow y Arco Desnudo en Sala", inicio: "2027-01-22", fin: "2027-01-24", sede: "Valdepeñas (Ciudad Real)", tipos: ["3d", "sala"], fed: "rfeta", asisten: "si" },
       { nombre: "4ª Jornada Liga Andaluza de 3D", inicio: "2027-02-27", fin: "2027-02-28", sede: "Huelma", tipos: ["3d"], fed: "fata", asisten: "si" },
@@ -251,7 +258,6 @@
         rfeta: { texto: "RFETA", titulo: "Real Federación Española de Tiro con Arco" },
         wa:    { texto: "WA",    titulo: "World Archery (Federación Mundial)" }
       };
-      var ASISTIREMOS = { si: "Asistiremos", no: "No asistiremos", pc: "Asistencia por confirmar" };
       var METALES = { oro: "Oro", plata: "Plata", bronce: "Bronce" };
       var ORDEN_METAL = { oro: 0, plata: 1, bronce: 2 };
       var ICONO_MEDALLA = '<svg class="cal-medalla__icono" viewBox="0 0 24 24" aria-hidden="true"><path class="cinta" d="M7.5 2 10.5 9M16.5 2 13.5 9"/><circle cx="12" cy="15" r="6.5"/><circle class="brillo" cx="12" cy="15" r="3.5"/></svg>';
@@ -305,13 +311,28 @@
       }
 
       // Recuadro "Participación de Carrion Birds":
-      // antes de la competición dice si vamos; después, las medallas
+      // solo cuando ya se ha celebrado: las medallas, o si participamos o no
       function participacion(c, pasada) {
+        if (!pasada) return "";   // antes de celebrarse no se muestra nada
         var contenido;
-        if (!pasada) {
-          contenido = '<p class="cal-part__estado cal-part__estado--' + c.asisten + '">' + ASISTIREMOS[c.asisten] + "</p>";
-        } else if (c.asisten === "no") {
+        var titulo = "Participación de Carrion Birds";
+        if (c.asisten === "no") {
           contenido = '<p class="cal-part__estado cal-part__estado--no">No participamos</p>';
+        } else if (!c.medallas && c.posiciones) {
+          // Jornadas sin medallas pero con ranking: puestos agrupados por categoría
+          titulo = "Ranking Carrion Birds";
+          var categorias = [];
+          c.posiciones.forEach(function (p) {
+            var g = categorias.filter(function (x) { return x.nombre === p.categoria; })[0];
+            if (!g) categorias.push(g = { nombre: p.categoria, puestos: [] });
+            g.puestos.push(p.puesto);
+          });
+          contenido = (c.resultado ? '<p class="cal-part__nota">' + mayuscula(c.resultado) + "</p>" : "") +
+            '<ul class="cal-posiciones">' + categorias.map(function (g) {
+              return "<li><span>" + g.nombre + '</span><span class="cal-posiciones__puestos">' +
+                g.puestos.sort(function (a, b) { return a - b; }).map(function (n) { return "<b>" + n + "º</b>"; }).join("") +
+                "</span></li>";
+            }).join("") + "</ul>";
         } else if (!c.medallas && c.resultado) {
           contenido = '<p class="cal-part__estado cal-part__estado--pc">Participamos · ' + c.resultado + "</p>";
         } else if (!c.medallas) {
@@ -328,7 +349,7 @@
         }
         return '<div class="cal-part">' +
           '<p class="cal-part__titulo"><img src="img/favicon.png" alt="" width="24" height="24">' +
-          (pasada && c.medallas && c.medallas.length ? "Medallero Carrion Birds" : "Participación de Carrion Birds") + "</p>" +
+          (c.medallas && c.medallas.length ? "Medallero Carrion Birds" : titulo) + "</p>" +
           contenido + "</div>";
       }
 

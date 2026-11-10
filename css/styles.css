@@ -592,6 +592,16 @@ p { margin: 0 0 1rem; }
 .cal-part__estado--pc { color: var(--gris-texto); font-weight: normal; font-style: italic; }
 .cal-part__estado--no { color: #8a8a8a; font-weight: normal; }
 
+/* Ranking (jornadas sin medallas): categoría y sus puestos en pastillas */
+.cal-part__nota { margin: 0 0 .5rem; font-size: .9rem; font-style: italic; color: var(--gris-texto); }
+.cal-posiciones { display: grid; gap: .45rem; }
+.cal-posiciones li { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .75rem; font-size: .95rem; color: var(--blanco); }
+.cal-posiciones__puestos { display: flex; gap: .3rem; }
+.cal-posiciones__puestos b {
+  min-width: 2.1rem; padding: .1rem .45rem; border-radius: 999px; text-align: center;
+  font-weight: 600; font-size: .85rem; color: var(--oro); border: 1px solid rgba(242, 194, 48, .6);
+}
+
 /* Medallas: icono del color del metal, metal en negrita y categoría */
 .cal-medallas { display: grid; gap: .4rem; }
 .cal-medalla { display: flex; align-items: center; gap: .55rem; font-size: .95rem; }
